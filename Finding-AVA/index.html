@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FINDING AVA</title>
+    <meta name="description" content="Finding Ava -- An Archaeology WebVR Game">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://unpkg.com/aframe-line-component/dist/aframe-line-component.min.js"></script>
+    <script src="scripts/components.js"></script>
+    <!--<script src="scripts/gamepad.js"></script>-->
+  </head>
+  <body>
+  <a-scene shadow="type: pcfsoft">
+    <!-- assets to use -->
+    <a-assets>
+      <audio id="click-sound" src="audio/click.wav"></audio>
+      <!-- textures -->
+      <img id="wood" src="image/wood.jpg">
+      <img id="wood2" src="image/wood2.jpg">
+      <img id="whitewood" src="image/whitewood.jpg">
+      <img id="roomground-texture" src="image/roomground.jpg">
+      <img id="roomwall-texture" src="image/roomwall.jpg">
+      <img id="desk" src="image/desk.jpg">
+      <!--<video id="background-video" src="video/background-story-sample.mp4"></video>-->
+      <!-- iamges -->
+      <img id="sechelt" src="image/sechelt.jpg">
+      <img id="lock" src="image/lock2.png">
+      <img id="discover" src="image/discoverback2.jpg">
+      <img id="skyback" src="image/sky.jpg">
+      <img id="passwordhint" src="image/passwordhint.png">
+      <img id="dighint" src="image/dighint.png">
+      <img id="skeleton" src="image/skeleton.jpg">
+      <img id="bodyframe" src="image/body.jpg">
+      <img id="digsite" src="image/digsite.jpg">
+      <img id="beaker-info" src="image/pottery-info.jpg">
+      <!-- tools icons on board -->
+      <img id="shovel-icon" src="image/shovel-icon.png">
+      <img id="peg-icon" src="image/peg-icon.png">
+      <img id="line-icon" src="image/line-icon.png">
+      <img id="mattock-icon" src="image/mattock-icon.png">
+      <img id="trowel-icon" src="image/trowel-icon.png">
+      <img id="brush-icon" src="image/brush-icon.png">
+      <img id="ruler-icon" src="image/ruler-icon.png">
+      <img id="compass-icon" src="image/compass-icon.png">
+      <!-- bones and debris icons on board -->
+      <img id="skull-icon" src="image/skull-icon.png">
+      <img id="leg-icon" src="image/leg-icon.png">
+      <img id="rib-icon" src="image/rib-icon.png">
+      <img id="arm-icon" src="image/arm-icon.png">
+      <img id="tooth-icon" src="image/tooth-icon.png">
+      <img id="spine-icon" src="image/spine-icon.png">
+      <img id="beaker-left-icon" src="image/beaker-left-icon.png">
+      <img id="beaker-rightup-icon" src="image/beaker-rightup-icon.png">
+      <img id="beaker-rightdown-icon" src="image/beaker-rightdown-icon.png">
+      <!-- models -->
+      <!-- discover ground -->
+      <a-asset-item id="ground-surface-obj" src="models/ground-surface.obj"></a-asset-item>
+      <a-asset-item id="ground-surface-mtl" src="models/ground-surface.mtl"></a-asset-item>
+      <a-asset-item id="ground-layer-obj" src="models/ground-layer.obj"></a-asset-item>
+      <a-asset-item id="ground-layer-mtl" src="models/ground-layer.mtl"></a-asset-item>
+      <a-asset-item id="ground-dig1-obj" src="models/ground-dig1.obj"></a-asset-item>
+      <a-asset-item id="ground-dig1-mtl" src="models/ground-dig1.mtl"></a-asset-item>
+      <a-asset-item id="ground-dig2-obj" src="models/ground-dig2.obj"></a-asset-item>
+      <a-asset-item id="ground-dig2-mtl" src="models/ground-dig2.mtl"></a-asset-item>
+      <!-- tools -->
+      <a-asset-item id="shovel-obj" src="models/tools/shovel2.obj"></a-asset-item>
+      <a-asset-item id="shovel-mtl" src="models/tools/shovel2.mtl"></a-asset-item>
+      <a-asset-item id="mattock-obj" src="models/tools/mattock.obj"></a-asset-item>
+      <a-asset-item id="mattock-mtl" src="models/tools/mattock.mtl"></a-asset-item>
+      <a-asset-item id="compass-obj" src="models/tools/compass.obj"></a-asset-item>
+      <a-asset-item id="compass-mtl" src="models/tools/compass.mtl"></a-asset-item>
+      <a-asset-item id="ruler-obj" src="models/tools/ruler.obj"></a-asset-item>
+      <a-asset-item id="ruler-mtl" src="models/tools/ruler.mtl"></a-asset-item>
+      <a-asset-item id="trowel-obj" src="models/tools/trowel.obj"></a-asset-item>
+      <a-asset-item id="trowel-mtl" src="models/tools/trowel.mtl"></a-asset-item>
+      <a-asset-item id="brush-obj" src="models/tools/brush.obj"></a-asset-item>
+      <a-asset-item id="brush-mtl" src="models/tools/brush.mtl"></a-asset-item>
+      <a-asset-item id="peg-obj" src="models/tools/peg.obj"></a-asset-item>
+      <a-asset-item id="peg-mtl" src="models/tools/peg.mtl"></a-asset-item>
+      <a-asset-item id="line-obj" src="models/tools/line.obj"></a-asset-item>
+      <a-asset-item id="line-mtl" src="models/tools/line.mtl"></a-asset-item>
+      <!-- items on the ground -->
+      <a-asset-item id="toolbox-obj" src="models/toolbox.obj"></a-asset-item>
+      <a-asset-item id="toolbox-mtl" src="models/toolbox.mtl"></a-asset-item>
+      <a-asset-item id="toolbox-open-obj" src="models/toolbox-open.obj"></a-asset-item>
+      <a-asset-item id="toolbox-open-mtl" src="models/toolbox-open.mtl"></a-asset-item>
+      <a-asset-item id="tent-obj" src="models/tent.obj"></a-asset-item>
+      <a-asset-item id="tent-mtl" src="models/tent.mtl"></a-asset-item>
+      <!-- beaker -->
+      <a-asset-item id="beaker-obj" src="models/beaker/beaker_real.obj"></a-asset-item>
+      <a-asset-item id="beaker-mtl" src="models/beaker/beaker_real.mtl"></a-asset-item>
+      <a-asset-item id="beaker-left-obj" src="models/mybeaker-left.obj"></a-asset-item>
+      <a-asset-item id="beaker-left-mtl" src="models/mybeaker-left.mtl"></a-asset-item>
+      <a-asset-item id="beaker-rightup-obj" src="models/mybeaker-rightup.obj"></a-asset-item>
+      <a-asset-item id="beaker-rightup-mtl" src="models/mybeaker-rightup.mtl"></a-asset-item>
+      <a-asset-item id="beaker-rightdown-obj" src="models/mybeaker-rightdown.obj"></a-asset-item>
+      <a-asset-item id="beaker-rightdown-mtl" src="models/mybeaker-rightdown.mtl"></a-asset-item>
+      <!-- human remains -->
+      <a-asset-item id="skull-obj" src="models/skull/ava_skull.obj"></a-asset-item>
+      <a-asset-item id="skull-mtl" src="models/skull/ava_skull.mtl"></a-asset-item>
+      <a-asset-item id="arm-obj" src="models/bones/arm.obj"></a-asset-item>
+      <a-asset-item id="arm-mtl" src="models/bones/arm.mtl"></a-asset-item>
+      <a-asset-item id="leg-obj" src="models/bones/leg.obj"></a-asset-item>
+      <a-asset-item id="leg-mtl" src="models/bones/leg.mtl"></a-asset-item>
+      <a-asset-item id="rib-obj" src="models/bones/rib.obj"></a-asset-item>
+      <a-asset-item id="rib-mtl" src="models/bones/rib.mtl"></a-asset-item>
+      <a-asset-item id="spine-obj" src="models/bones/spine.obj"></a-asset-item>
+      <a-asset-item id="spine-mtl" src="models/bones/spine.mtl"></a-asset-item>
+      <!-- radiocarbon -->
+      <a-asset-item id="radiocarbon-obj" src="models/radiocarbon.obj"></a-asset-item>
+      <a-asset-item id="radiocarbon-mtl" src="models/radiocarbon.mtl"></a-asset-item>
+      <!-- book shelf -->
+      <a-asset-item id="shelf-obj" src="models/bookshelf.obj"></a-asset-item>
+      <a-asset-item id="shelf-mtl" src="models/bookshelf.mtl"></a-asset-item>
+      <a-asset-item id="book-obj" src="models/book.obj"></a-asset-item>
+      <a-asset-item id="book-mtl" src="models/book.mtl"></a-asset-item>
+      
+      <!-- icon module-->
+      <script id="icon" type="text/html">
+        <a-entity geometry="primitive: circle; radius:0.3"
+        material="color: #FFF; src: ${thumb}"
+        sound="on: click; src: #click-sound"
+        iconhover>
+          <a-circle radius="0.36" color="orange" position="0 0 -0.01" visible="false"></a-circle>
+        </a-entity>
+      </script>
+    </a-assets>
+
+    <!-- 360-degree background image -->
+    <a-sky id="environ" radius="20" src="#sechelt"></a-sky>
+
+    <!-- ======================================== welcome page ===========================================-->
+    <a-entity id="welcome_page" visible="true">
+      <!-- game title -->
+      <a-text value="FINDING" color="#FFF" width="4" font="dejavu" position="-0.7 3 0"></a-text>
+      <a-text value="AVA" color="orange" width="4" font="dejavu" position="0.1 3 0"></a-text>
+      <!-- start button -->
+      <a-plane color="#333" height="0.2" width="0.5" position="-0.1 2.5 0" opacity="0.8" sound="on: click; src: #click-sound"
+      text="value:START; color:#FFF; width:2; font:dejavu;align:center" 
+      switch-scene="from:#welcome_page; to:#level_page" 
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#FFF">
+      </a-plane>
+      <!-- instruction button -->
+      <a-plane height="0.2" width="0.5" position="-0.1 2.3 0" opacity="0" sound="on: click; src: #click-sound"
+      text="value:-INSTRUCTION-; color:#888; width:1;font:dejavu;align:center" 
+      switch-scene="from:#welcome_page; to:#instruction_page" 
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#888">
+      </a-plane>
+    </a-entity>
+
+    <!-- background story video page -->
+    <!--
+    <a-entity id="background_page" visible="false">
+      <a-videosphere id="background_story_video" src="#background-video" rotation="0 180 0" autoplay="false" radius="20"></a-videosphere>
+      <a-plane color="#555" width="0.5" height="0.2" position="1.5 2.4 -1.5" change-color-on-hover="target:#skip; color:orange" switch-scene="from:#background_page; to:#level_page" sound="on: click; src: #click-sound"> 
+        <a-text id="skip" value="SKIP >>" font="dejavu" color="#FFF" width="2" align="center"></a-text>
+      </a-plane>
+    </a-entity>
+    -->
+
+    <!-- ======================================== instruction page ===========================================-->
+    <a-entity id="instruction_page" visible="false">
+      <a-plane color="#333" height="1.2" width="1" position="0 2.5 0">
+        <a-text value="INSTRUCTION" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
+        <a-text value='"Finding AVA" is a game combining room escaping game with archaeology knowledge. You need to solve puzzles in order to find AVA and during this process, you will learn as well as play with fun.' color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="If you meet any problems, please click the help button for help. All the operation is completed by focusing and clicking on the corresponding object. Enjoy!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.11 0" wrap-count="34"></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.39 0.01" sound="on: click; src: #click-sound"
+        text="value:Got It!; color:#FFF; width:1.5; font:dejavu; align:center" 
+        switch-scene="from:#instruction_page; to:#welcome_page"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF">
+        </a-plane>
+      </a-plane>
+    </a-entity>
+
+    <!-- ======================================== level page ===========================================-->
+    <a-entity id="level_page" visible="false" levels="event:checklevel">
+      <!-- back button --> 
+      <a-plane opacity="0" width="2" height="0.5" position="-2.25 3.5 -1.5" sound="on: click; src: #click-sound"
+      text="value:<< BACK; color:#FFF; width:4; font:dejavu; align:center" 
+      switch-scene="from:#level_page; to:#welcome_page"
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#FFF">
+      </a-plane>
+      <!-- three levels -->
+      <a-entity layout="layout: line; margin: 1.5" position="-1.5 2.5 -1.5">
+        <!-- first discover level -->
+        <a-plane id="discover_link" width="1" height="1" src="#level1" color="#333" sound="on: click; src: #click-sound" 
+        text="value:DISCOVER; color:#FFF; width:3; font:dejavu; align:center" 
+        switch-scene="from:#level_page; to:#discover_page"
+        change-environ="src:#discover"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF">
+        </a-plane>
+        <!-- second identify level -->
+        <a-plane id="identify_link" width="1" height="1" src="#level2" color="#333" sound="on: click; src: #click-sound"
+        text="value:IDENTIFY; color:#FFF; width:3; font:dejavu; align:center">
+        <a-plane id="locked1" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
+        </a-plane>
+        <!-- third research level --> 
+        <a-plane id="research_link" width="1" height="1" color="#333" sound="on: click; src: #click-sound"
+        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center">
+        <a-plane id="locked2" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
+        </a-plane>
+      </a-entity>
+    </a-entity>
+
+    <!-- ======================================== discover page ===========================================-->
+    <a-entity id="discover_page" visible="false">
+    <!-- tool box board -->
+      <a-plane id="toolboxboard" color="#555" opacity="0" width="7.5" height="1.5" position="0 3.5 -3.5"> 
+        <a-text value="TOOL BOX" font="dejavu" color="#10563a" width="6.5" align="left" position="-3.45 0.5 0"></a-text>
+        <a-entity id="shovel-tool" position="-3.15 -0.2 0.01" template="src: #icon" data-thumb="#shovel-icon" selecttool="selectwhichtool:#useshovel" visible="false"></a-entity>
+        <a-entity id="toolsinbox" layout="layout: line; margin: 0.9" position="-3.15 -0.2 0.01" visible="false">
+          <a-entity template="src: #icon" visible="false"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#peg-icon" selecttool="selectwhichtool:#usepeg"></a-entity> 
+          <a-entity template="src: #icon" data-thumb="#line-icon" selecttool="selectwhichtool:#useline"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#mattock-icon" selecttool="selectwhichtool:#usemattock"></a-entity> 
+          <a-entity template="src: #icon" data-thumb="#trowel-icon" selecttool="selectwhichtool:#usetrowel"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#brush-icon" selecttool="selectwhichtool:#usebrush"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#ruler-icon" selecttool="selectwhichtool:#useruler"></a-entity> 
+          <a-entity template="src: #icon" data-thumb="#compass-icon" selecttool="selectwhichtool:#usecompass"></a-entity>
+        </a-entity>
+      </a-plane>
+
+      <!-- timer -->
+      <a-plane id="showtime1" color="#10563a" height="0.5" position="0 4 -3.49">
+        <a-text color="#FFF" align="center" width="6"></a-text>
+      </a-plane>
+
+      <!-- help angel -->
+      <a-circle color="#10563a" radius="0.3" text="value:?;align:center;width:8" position="2.2 4 -3.49" 
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#FFF"
+      showsomething="target:#helpinfo1">
+        <a-animation attribute="position" to="2.2 4.1 -3.49" dur="1000" easing="ease-in-out" repeat="indefinite" direction="alternate"></a-animation>
+      </a-circle>
+
+      <!-- help information -->
+      <a-plane id="helpinfo1" color="#333" height="1.2" width="1" position="0 2.5 0" visible="false">
+        <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
+        <a-text value="This level aims to get you know more about archaeology excavation tools. You need to use information in the notebook to unlock the tool box. They both are hidden under the tent." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="Please pay attention to the numbers which indicate the corresponding password digit position as well as the using order of these tools. If you don't follow the order, it won't work!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.16 0" wrap-count="34" ></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.45 0.01" sound="on: click; src: #click-sound"
+        text="value:Got It!; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#helpinfo1">
+        </a-plane>
+      </a-plane>
+
+      <!-- HOME button -->
+      <a-plane color="#10563a" opacity="0" width="1.2" height="0.5" position="3.1 3.94 -3.4" switch-scene="from:#discover_page; to:#level_page" change-environ="src:#sechelt" sound="on: click; src: #click-sound"
+      text="value:<< HOME; color:#10563a; width:5; font:dejavu; align:center"
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#10563a">
+      </a-plane>
+
+      <!-- ground -->
+      <a-entity id="discover-ground" usetool>
+        <a-entity obj-model="obj: #ground-surface-obj; mtl: #ground-surface-mtl" shadow="receive: true"></a-entity>
+        <a-entity obj-model="obj: #ground-layer-obj; mtl: #ground-layer-mtl" shadow="receive: true"></a-entity>
+        <a-entity obj-model="obj: #ground-dig1-obj; mtl: #ground-dig1-mtl" shadow="receive: true" visible="false"></a-entity>
+        <a-entity obj-model="obj: #ground-dig2-obj; mtl: #ground-dig2-mtl" shadow="receive: true" visible="false"></a-entity>
+        <a-plane src="#digsite" width="2.5" height="1.5" position="1.25 -1.66 -0.75" rotation="-90 0 0" visible="false"></a-plane>
+      </a-entity>
+
+      <!-- items on the ground -->
+      <!-- shovel -->
+      <a-entity id="shovel-model" obj-model="obj: #shovel-obj; mtl: #shovel-mtl" scale="1.5 1.5 1.5" rotation="-90 225 0"  position="-4.6 0.05 -2.37" addtool="name:#shovel-tool"></a-entity>
+
+      <!-- tent -->
+      <!--<a-sphere id="tent-model" color="#227B94" radius="1" position="-1.87 -0.1 -2" digtent></a-sphere>-->
+      <a-entity id="tent-model" obj-model="obj: #tent-obj; mtl: #tent-mtl" position="-1.9 0 -2.14" rotation="0 -90 0" scale="1.2 1.5 1.5" digtent></a-entity>
+
+      <!-- toolbox -->
+      <a-entity id="toolbox-model" obj-model="obj: #toolbox-obj; mtl: #toolbox-mtl" position="-1.88 0.35 -2.18" showlock></a-entity>
+      <a-entity id="toolbox-open-model" obj-model="obj: #toolbox-open-obj; mtl: #toolbox-open-mtl" position="-1.88 0.35 -2.18" visible="false"></a-entity>
+
+      <!-- alphabet lock on the toolbox -->
+      <a-plane color="#CCC" width="0.2" height="0.15" position="-1.88 0.45 -1.91"></a-plane>
+      <a-plane id="letterlock" color="#CCC" width="0.2" height="0.15" position="-1.88 0.45 -1.91">
+        <a-text id="locktext" color="#000" value="Alphabet Lock" font="dejavu" width="0.3" align="center" position="0 0.06 0"></a-text>
+        <!-- lock digits -->
+        <a-entity id="lockdigits" layout="layout: line; margin: 0.03" position="-0.075 0.01 0.001">
+          <!-- first digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#firstdigit"></a-entity>
+            <a-text id="firstdigit" value="A" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#firstdigit"></a-entity>
+          </a-plane>
+          <!-- second digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#seconddigit"></a-entity>
+            <a-text id="seconddigit" value="T" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#seconddigit"></a-entity>
+          </a-plane>
+          <!-- third digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#thirddigit"></a-entity>
+            <a-text id="thirddigit" value="O" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#thirddigit"></a-entity>
+          </a-plane>
+          <!-- fourth digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#fourthdigit"></a-entity>
+            <a-text id="fourthdigit" value="M" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#fourthdigit"></a-entity>
+          </a-plane>
+          <!-- fifth digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#fifthdigit"></a-entity>
+            <a-text id="fifthdigit" value="O" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#fifthdigit"></a-entity>
+          </a-plane>
+          <!-- sixth digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#sixthdigit"></a-entity>
+            <a-text id="sixthdigit" value="Y" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#sixthdigit"></a-entity>
+          </a-plane>
+        </a-entity>
+        <!-- open lock button -->
+        <a-plane id="openlock" color="#555" width="0.08" height="0.03" position="0 -0.05 0.001"
+        text="value:OPEN; color:#FFF; width:0.3; font:dejavu; align:center" 
+        event-set__1="_event: mouseenter; text.color:orange" 
+        event-set__2="_event: mouseleave; text.color:#FFF" openlock>
+        </a-plane>
+      </a-plane>
+
+      <!-- notebook -->
+      <a-box id="notebook-model" color="#362F19" width="0.3" height="0.05" depth="0.5" position="-2.3 0.175 -1.55">
+      </a-box>
+      <a-text color="#FFF" value="NOTEBOOK" font="dejavu" width="0.8" align="center" position="-2.3 0.225 -1.64" rotation="-90 0 0"></a-text>
+      <a-plane src="#passwordhint" width="0.35" height="0.25" position="-2 0.175 -1.5" rotation="-90 60 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:-0.1 2.5 -0.75"></a-plane> 
+      <a-plane src="#dighint" width="0.35" height="0.25" position="-1.7 0.15 -1.5" rotation="-90 -75 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:-0.1 2.5 -0.75"></a-plane>
+
+      <!-- flag -->
+      <a-cylinder id="flag-model" color="#F5DE4C" height="2.5" radius="0.02" position="-0.48 1.3 -2" shadow="cast: true">
+        <a-plane color="#F5DE4C" width="1.2" height="0.8" position="0.6 0.85 0">
+          <a-text value="Archaeology Expedition" align="center" width="2" color="#000"></a-text> 
+        </a-plane>
+      </a-cylinder>
+
+      <!-- using compass -->
+      <a-entity id="directionline" visible="false" usetool>
+        <a-entity line="start:-0.5 0.11 -2; end:-0.5 0.11 1"></a-entity>
+        <a-entity line="start:-0.5 0.11 -2; end:2.5 0.11 -2"></a-entity>
+      </a-entity>
+      <!-- using ruler -->
+      <a-entity id="measurepoint" visible="false" usetool>
+        <a-circle radius="0.03" position="-0.5 0.11 -1" rotation="-90 0 0"></a-circle>
+        <a-circle radius="0.03" position="-0.5 0.11 0" rotation="-90 0 0"></a-circle>
+        <a-circle radius="0.03" position="0.5 0.11 -2" rotation="-90 0 0"></a-circle>
+        <a-circle radius="0.03" position="1.5 0.11 -2" rotation="-90 0 0"></a-circle>
+      </a-entity>
+      <!-- using peg -->
+      <a-entity id="pegpoint" visible="false" usetool>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="-0.5 0.11 -1"></a-cylinder>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="-0.5 0.11 0"></a-cylinder>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="0.5 0.11 -2"></a-cylinder>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="1.5 0.11 -2"></a-cylinder>
+      </a-entity>
+      <!-- using line -->
+      <a-entity id="crossline" visible="false" usetool>
+        <a-entity line="start:-0.5 0.11 -1; end:2.5 0.11 -1"></a-entity>
+        <a-entity line="start:-0.5 0.11 0; end:2.5 0.11 0"></a-entity>
+        <a-entity line="start:0.5 0.11 -2; end:0.5 0.11 1"></a-entity>
+        <a-entity line="start:1.5 0.11 -2; end:1.5 0.11 1"></a-entity>
+      </a-entity>
+
+      <!-- discover level end -->
+      <a-plane id="discover-end" color="#333" height="1.8" width="2.5" position="0 2.6 -1" visible="false" switch-scene="from:#discover_page; to:#level_page" change-environ="src:#sechelt">
+        <a-text value="Congratulations!" color="orange" width="2.2" wrap-count="50" align="center" font="dejavu" position="0 0.77 0"></a-text>
+        <a-text value="You have cleared the first level!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.6 0"></a-text>
+        <a-text value="Excavation retains its central role in fieldwork because it yields the most reliable evidence for further research. It relies on methods designed to elucidate the horizontal extent of a site in space and the vertical stratification representing changes through time. Good recording methods are essential, although they are not included in the game. Besides, there are many other important tools like geophysics georadar, total station, plumb line, screen, etc." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.075 0"></a-text>
+        <a-text value="Next level, we will go to the laboratory for processing and classifying the finds." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.5 0"></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.5" height="0.2" position="0 -0.75 0.01" sound="on: click; src: #click-sound"
+        text="value:OK; color:#FFF; width:2; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF">
+        </a-plane>
+      </a-plane>
+    </a-entity>
+
+    <!-- ======================================== identify page ===========================================-->
+    <a-entity id="identify_page" visible="false">
+      <!-- ground and wall -->
+      <!-- down and up-->
+      <a-cylinder id="identify-ground" color="#313c47" height="0.2" radius="20" src="#roomground-texture" repeat="20 20"></a-cylinder>
+      <a-box color="#abbed1" src="#roomwall-texture" repeat="12 6" width="8" height="8" depth="0.5" rotation="-90 0 0" position="0 6 0"></a-box>
+      <!-- front and back -->
+      <a-box color="#abbed1" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 -4">
+        <!-- bones and debris board -->
+        <a-plane id="bones-board" color="#555" opacity="0" width="7.5" height="1.5" position="0 0.9 0.6">
+          <a-text value="REMAINS" font="dejavu" color="#313c47" width="6.5" align="left" position="-3 0.6 0"></a-text>
+          <a-entity layout="layout: line; margin: 0.9" position="-1.5 -0.4 0.01">
+            <a-entity template="src: #icon" data-thumb="#skull-icon" selectbone="selectwhichbone:#useskull"></a-entity>
+            <a-entity template="src: #icon" data-thumb="#leg-icon" selectbone="selectwhichbone:#useleg"></a-entity>
+            <a-entity template="src: #icon" data-thumb="#rib-icon" selectbone="selectwhichbone:#userib"></a-entity>
+            <a-entity template="src: #icon" data-thumb="#arm-icon" selectbone="selectwhichbone:#usearm"></a-entity>
+          </a-entity>
+          <a-entity layout="layout: line; margin: 0.9" position="-1.5 -1.3 0.01">
+            <a-entity template="src: #icon" data-thumb="#spine-icon" selectbone="selectwhichbone:#usespine"></a-entity>
+            <a-entity template="src: #icon" data-thumb="#beaker-left-icon" selectbone="selectwhichbone:#use-beaker-left"></a-entity>
+            <a-entity template="src: #icon" data-thumb="#beaker-rightup-icon" selectbone="selectwhichbone:#use-beaker-rightup"></a-entity>
+            <a-entity template="src: #icon" data-thumb="#beaker-rightdown-icon" selectbone="selectwhichbone:#use-beaker-rightdown"></a-entity>
+          </a-entity>
+        </a-plane>
+
+        <!-- timer --> 
+        <a-plane id="showtime2" height="0.5" color="#313c47" position="0 1.5 0.61">
+          <a-text color="#FFF" align="center" width="6"></a-text>
+        </a-plane>
+
+        <!-- help angel -->
+        <a-circle color="#313c47" radius="0.3" text="value:?;align:center;width:8" position="1.7 1.5 0.61"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        showsomething="target:#helpinfo2">
+          <a-animation attribute="position" to="1.7 1.6 0.61" dur="1000" easing="ease-in-out" repeat="indefinite" direction="alternate"></a-animation>
+        </a-circle>
+
+        <!-- HOME button -->
+        <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="2.8 1.5 0.61" switch-scene="from:#identify_page; to:#level_page" change-environ="src:#sechelt" sound="on: click; src: #click-sound"
+        text="value:<< HOME; color:#313c47; width:5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#313c47">
+        </a-plane>
+      </a-box>
+      <a-box color="#abbed1" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 4"></a-box>
+      <!-- left and right -->
+      <a-box color="#abbed1" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" rotation="0 90 0" position="-4 3 0">
+        <a-plane src="#skeleton" position="1.68 0 0.26" width="2.5" height="3"></a-plane>
+      </a-box>
+      <a-box color="#abbed1" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" rotation="0 -90 0" position="4 3 0">
+        <a-plane width="3" height="2" color="#FFF" src="#beaker-info" position="-1.3 0 0.26"></a-plane>
+      </a-box>
+
+      <!-- help information -->
+      <a-plane id="helpinfo2" color="#333" height="1.2" width="1" position="0 2.5 0" visible="false">
+        <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
+        <a-text value="This level helps you to understand the identification stage after excavation. You need to reconstruct the beaker and sort out the human remains. Click the tags on the table and try to identify each part." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="In this stage, what archaeologists usually do also includes dating the human bones, so find the radiocarbon machine hidden under the desk!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.16 0" wrap-count="34" ></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.45 0.01" sound="on: click; src: #click-sound"
+        text="value:Got It!; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#helpinfo2">
+        </a-plane>
+      </a-plane>
+
+      <!-- desk -->
+      <a-box src="#wood" color="#313c47" width="2.5" height="2" depth="2" position="0 0 -1.2">
+        <a-entity id="carbonmachine" obj-model="obj:#radiocarbon-obj; mtl:#radiocarbon-mtl" visible="false"></a-entity>
+        <!-- left beaker -->
+        <a-box id="leftcover" color="#627487" src="#wood" width="1.5" height="0.1" depth="2.6" position="-0.75 1.05 0" checkbeaker="event:buildingbeaker">
+          <a-plane text="value:The Beaker;align:center;color:#000;width:1.5" position="0 0.06 1" width="0.5" height="0.2" rotation="-90 0 0" event-set__1="_event: mouseenter; color: orange" event-set__2="_event: mouseleave; color:#FFF" showsomething="target:#beaker-container"></a-plane>
+          <a-entity id="beaker-container" position="0 0.45 0" scale="1.5 1.5 1.5" visible="false">
+            <a-plane width="auto" height="auto" position="0.08 -0.26 0.5" rotation="-90 0 0" opacity="0" text="value: Please put the remains in the right position.;color: orange"></a-plane>
+            <a-entity obj-model="obj: #beaker-left-obj;" changeable="condition:#use-beaker-left; action:#beaker-left"></a-entity>
+            <a-entity obj-model="obj: #beaker-rightup-obj;" changeable="condition:#use-beaker-rightup; action:#beaker-rightup"></a-entity>
+            <a-entity obj-model="obj: #beaker-rightdown-obj;" changeable="condition:#use-beaker-rightdown;action:#beaker-rightdown"></a-entity>
+          </a-entity>
+          <!-- beaker age question -->
+          <a-plane id="beaker-question" width="1.3" height="1" color="#555" position="0.75 1.4 0.7" visible="false">
+            <a-text value="Which age does the pottery belong to?" position="-0.55 0.38 0" width="1.5" wrap-count="40"></a-text>
+            <a-plane color="#000" text="value: Roman Age; align:center; width:1.5" 
+            position="-0.3 0.08 0.01" height="0.25" width="0.5"
+            event-set__1="_event: mouseenter; text.color:orange"
+            event-set__2="_event: mouseleave; text.color:#FFF"></a-plane>
+            <a-plane color="#000" text="value: Bronze Age; align:center; width:1.5" 
+            position="0.3 0.08 0.01" height="0.25" width="0.5"
+            event-set__1="_event: mouseenter; text.color:orange"
+            event-set__2="_event: mouseleave; text.color:#FFF" openleftcover></a-plane>
+            <a-plane color="#000" text="value: Neolithic Age;align:center; width:1.5" 
+            position="-0.3 -0.25 0.01" height="0.25" width="0.5"
+            event-set__1="_event: mouseenter; text.color:orange"
+            event-set__2="_event: mouseleave; text.color:#FFF"></a-plane>
+            <a-plane color="#000" text="value: Iron Age;align:center; width:1.5" 
+            position="0.3 -0.25 0.01" height="0.25" width="0.5"
+            event-set__1="_event: mouseenter; text.color:orange"
+            event-set__2="_event: mouseleave; text.color:#FFF"></a-plane>
+          </a-plane>
+        </a-box>
+        <!-- right human body -->
+        <a-box id="rightcover" color="#627487" src="#wood" width="1.5" height="0.1" depth="2.6" position="0.75 1.05 0" checkbody="event:buildingbody">
+          <a-plane text="value:The Body;align:center;color:#000;width:1.5" position="0 0.06 1" width="0.5" height="0.2" rotation="-90 0 0" event-set__1="_event: mouseenter; color: orange" event-set__2="_event: mouseleave; color:#FFF"
+          showsomething="target:#body"></a-plane>
+          <!-- body frame image -->
+          <a-entity id="body" position="0 0.55 -0.25" visible="false">
+            <a-plane width="1.4" height="auto" position="0.1 -0.5 1" rotation="-90 0 0" opacity="0" text="value: Please put the remains in the right position.; color:orange"></a-plane>
+            <a-plane width="1.2" height="2" src="#bodyframe" rotation="-60 0 0">
+              <!-- subdivide corresponding position -->
+              <!-- 1/4 up to down: skull position-->
+              <a-plane opacity="0" width="1.2" height="0.5" position="0 0.75 0.01" putbody="bone:#useskull; target:#skullmodel">
+                <a-entity id="skullmodel" obj-model="obj:#skull-obj; mtl:#skull-mtl" scale="0.02 0.02 0.02" rotation="22.5 -95 -78" visible="false"></a-entity>
+              </a-plane>
+              <!-- 1/4 up to down-->
+              <a-plane opacity="0" width="1.2" height="0.5" position="0 0.25 0.01">
+                <!-- 1/3 left to right: arm position -->
+                <a-plane opacity="0" width="0.4" height="0.5" position="-0.4 0 0.01" putbody="bone:#usearm; target:#armmodel">
+                  <a-entity id="armmodel" obj-model="obj: #arm-obj; mtl:#arm-mtl" scale="0.3 0.3 0.3" position="0.1 0.1 0" rotation="-5.33 -18.16 -32.65" visible="false"></a-entity>
+                </a-plane>
+                <!-- 1/3 left to right -->
+                <a-plane opacity="0" width="0.4" height="0.5" position="0 0 0.01">
+                  <!-- 1/2 up tp down: spine position -->
+                  <a-plane opacity="0" width="0.4" height="0.25" position="0 -0.125 0.01" putbody="bone:#usespine; target:#spinemodel">
+                    <a-entity id="spinemodel" obj-model="obj: #spine-obj; mtl:#spine-mtl" position="0 -0.02 0.06" rotation="10 0 0" scale="0.6 0.6 0.6" visible="false"></a-entity>
+                  </a-plane>
+                  <!-- 1/2 up tp down: rib position -->
+                  <a-plane opacity="0" width="0.4" height="0.25" position="0 0.125 0.01" putbody="bone:#userib; target:#ribmodel">
+                    <a-entity id="ribmodel" obj-model="obj: #rib-obj; mtl:#rib-mtl" position="-0.06 0 0" rotation="90 0 0" scale="0.3 0.3 0.3" visible="false"></a-entity>
+                  </a-plane>
+                </a-plane>
+                <!-- 1/3 left to right -->
+                <a-plane opacity="0" width="0.4" height="0.5" position="0.4 0 0.01"></a-plane>
+              </a-plane>
+              <!-- 1/4 up to down: leg position -->
+              <a-plane opacity="0" width="1.2" height="0.5" position="0 -0.25 0.01" putbody="bone:#useleg; target:#legmodel">
+                <a-entity id="legmodel" obj-model="obj: #leg-obj; mtl:#leg-mtl" position="0.15 0 0" scale="0.3 0.3 0.3" visible="false"></a-entity>
+              </a-plane>
+              <!-- 1/4 up to down-->
+              <a-plane opacity="0" width="1.2" height="0.5" position="0 -0.75 0.01"></a-plane>
+            </a-plane>
+          </a-entity>
+        </a-box>
+      </a-box>
+
+      <!-- identify level end -->
+      <a-plane id="identify-end" color="#333" height="1.8" width="2.5" position="0 3 -1" visible="false" switch-scene="from:#identify_page; to:#level_page" change-environ="src:#sechelt">
+        <a-text value="Congratulations!" color="orange" width="2.2" wrap-count="50" align="center" font="dejavu" position="0 0.77 0"></a-text>
+        <a-text value="You have cleared the second level!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.6 0"></a-text>
+        <a-text value="In this identification stage, the main job includes classfication and chronology. There are many ways for measuring time, which basically are divided into relative dating and absolute dating. The methods for relative dating includes Stratigraphy, Bone Age, Typological Sequences,etc. For absolute dating, there are ways like Calendars and Historical Chronologies, Radiocarbon Dating and Uranium-Series Dating. Archaeological dating is at its most reliable when the two methods are used together." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.075 0"></a-text>
+        <a-text value="Next level, we will go to the research lab for exloring more about the remains." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.5 0"></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.5" height="0.2" position="0 -0.75 0.01" sound="on: click; src: #click-sound"
+        text="value:OK; color:#FFF; width:2; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF">
+        </a-plane>
+      </a-plane>
+    </a-entity>
+
+    <!-- ======================================== research page ===========================================-->
+    <a-entity id="research_page" visible="false">
+      <!-- ground and wall -->
+      <!-- down and up-->
+      <a-cylinder id="research-ground" color="#66492d" height="0.2" radius="20" src="#roomground-texture" repeat="20 20"></a-cylinder>
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="8" depth="0.5" rotation="-90 0 0" position="0 6 0"></a-box>
+      <!-- front and back -->
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 -4">
+        <!-- question board -->
+        <a-text value="QUESTIONS" font="dejavu" color="#66492d" width="6.5" align="left" position="-3.4 1.9 0.26"></a-text>
+        <a-entity layout="layout: line; margin: 2.4" position="-2.4 0 0.26">
+          <!-- gender -->
+          <a-plane width="2" height="3" color="#e2cb9c">
+            <a-plane id="ava1" width="2" height="3" color="#555" position="0 0 0.02" opacity="1" visible="false">
+              <a-text value="A" width="70" color="orange" align="center" position="0.22 0.3 0.01" font="dejavu"></a-text>
+            </a-plane>
+            <a-plane color="#66492d" width="2" height="0.85" 
+            text="value: - GENDER -; font: dejavu; width:7; align:center; color:#e2cb9c" position="0 1.05 0.01">
+            </a-plane>
+            <a-entity>
+              <a-plane color="#664" width="2" height="0.65" text="value: Male; width:5; align:center" position="0 0.25 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane id="rightgender" color="#664" width="2" height="0.65" text="value: Female; width:5; align:center" position="0 -0.45 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.65" text="value: Not Sure; width:5; align:center" position="0 -1.15 0.01" event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+            </a-entity>
+          </a-plane>
+          <!-- age -->
+          <a-plane width="2" height="3" color="#e2cb9c">
+            <a-plane id="ava2" width="2" height="3" color="#555" position="0 0 0.02" opacity="1" visible="false">
+              <a-text value="V" width="70" color="orange" align="center" position="0.18 0.3 0.01" font="dejavu"></a-text>
+            </a-plane>
+            <a-plane color="#66492d" width="2" height="0.85" 
+            text="value: - AGE -; font: dejavu; width:7; align:center; color:#e2cb9c" position="0 1.05 0.01">
+            </a-plane>
+            <a-entity>
+              <a-plane color="#664" width="2" height="0.48" text="value: < 18; width:5; align:center" position="0 0.33 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane id="rightage" color="#664" width="2" height="0.48" text="value: 18 - 30; width:5; align:center" position="0 -0.19 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.48" text="value: 30 - 50; width:5; align:center" position="0 -0.71 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.48" text="value: > 50; width:5; align:center" position="0 -1.23 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+            </a-entity>
+          </a-plane>
+          <!-- height -->
+          <a-plane width="2" height="3" color="#e2cb9c">
+            <a-plane id="ava3" width="2" height="3" color="#555" position="0 0 0.02" opacity="1" visible="false">
+              <a-text value="A" width="70" color="orange" align="center" position="0.22 0.3 0.01" font="dejavu"></a-text>
+            </a-plane>
+            <a-plane color="#66492d" width="2" height="0.85" 
+            text="value: - HEIGHT -; font: dejavu; width:7; align:center; color:#e2cb9c" position="0 1.05 0.01">
+            </a-plane>
+            <a-entity>
+              <a-plane color="#664" width="2" height="0.65" text="value: < 1.5m; width:5; align:center" position="0 0.25 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane id="rightheight" color="#664" width="2" height="0.65" text="value: 1.5m - 1.8m; width:5; align:center" position="0 -0.45 0.01" event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.65" text="value: > 1.8m; width:5; align:center" position="0 -1.15 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+            </a-entity>
+          </a-plane>
+        </a-entity>
+
+        <!-- timer -->
+        <a-plane id="showtime3" color="#66492d" height="0.5" position="0 1.8 0.61" show-end="event:timepassing">
+          <a-text color="#FFF" align="center" width="6"></a-text>
+        </a-plane>
+
+        <!-- help angel -->
+        <a-circle color="#66492d" radius="0.3" text="value:?;align:center;width:8" position="1.7 1.8 0.61"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        showsomething="target:#helpinfo3">
+          <a-animation attribute="position" to="1.7 1.9 0.61" dur="1000" easing="ease-in-out" repeat="indefinite" direction="alternate"></a-animation>
+        </a-circle>
+
+        <!-- HOME button -->
+        <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="2.75 1.7 0.6" switch-scene="from:#research_page; to:#level_page" change-environ="src:#sechelt" sound="on: click; src: #click-sound"
+        text="value:<< HOME; color:#66492d; width:5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#664">
+        </a-plane>
+      </a-box>
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 4"></a-box>
+      <!-- left and right -->
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width=8" height="6" depth="0.5" rotation="0 90 0" position="-4 3 0">
+        <!-- book shelf -->
+        <a-entity obj-model="obj:#shelf-obj; mtl:#shelf-mtl" position="1.7 -2 0.6" scale="10 10 10" rotation="0 -90 0" showsomething="target:#book">
+          <a-entity id="book" obj-model="obj:#book-obj; mtl:#book-mtl" position="0.002 0 0.001" visible="false" showsomething="target:#researchhint"></a-entity>
+        </a-entity>
+      </a-box>
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" rotation="0 -90 0" position="4 3 0"></a-box>
+
+      <!-- help information -->
+      <a-plane id="helpinfo3" color="#333" height="1.2" width="1" position="0 2.5 0" visible="false">
+        <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
+        <a-text value="This final level requires you to find out the answers to the three questions on the wall. By referring to the research book on the shelf, you can get clues on how to get the answers." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="Observe the skeleton models carefully including the specimen standing by the wall. Pay attention to the male and female differences, they are the keys to find AVA." color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.16 0" wrap-count="34" ></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.45 0.01" sound="on: click; src: #click-sound"
+        text="value:Got It!; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#helpinfo3">
+        </a-plane>
+      </a-plane>
+
+      <!-- research hint from book -->
+      <a-plane id="researchhint" color="#FFF" height="1.8" width="2.5" position="0 2.6 -1" visible="false">
+        <a-text value="Human Skeleton Identification Methods" color="#000" width="2" font="dejavu" align="center"></a-text>
+        <!-- ok button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.5 0.01"
+        text="value:OK; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#researchhint">
+        </a-plane>
+      </a-plane>
+
+      <!-- desk -->
+      <a-box src="#wood2" width="2.5" height="1.5" depth="2" color="#a37d58" position="0.2 0 -2">
+        <a-box src="#desk" width="4" height="0.1" depth="2.6" color="#d8ab7f" position="0 0.8 0">
+          <a-entity id="boneondesk">
+            <a-entity obj-model="obj:#skull-obj; mtl:#skull-mtl" position="-1.1 0 0.5" scale="0.035 0.035 0.035" showboneinfo="scaleto:0.05 0.05 0.05; positionto:-1 1.5 0; target: #skull-info"></a-entity>
+            <a-entity obj-model="obj:#rib-obj; mtl:#rib-mtl" position="-0.3 0.22 0.5" rotation="30 0 0" scale="0.8 0.8 0.8" showboneinfo="scaleto:1 1 1; positionto:-1 1.8 0; target: #rib-info"></a-entity>
+            <a-entity obj-model="obj:#leg-obj; mtl:#leg-mtl" position="0.6 0.1 0.4" scale="0.6 0.6 0.6" rotation="90 30 0" showboneinfo="scaleto:1 1 1; positionto:-1 1.8 0; target: #leg-info"></a-entity>
+            <a-entity obj-model="obj:#spine-obj; mtl:#spine-mtl" position="1.25 0.2 0.5" scale="1.2 1.2 1.2" rotation="-90 0 0" showboneinfo="scaleto:1.5 1.5 1.5; positionto:-1 1.8 0; target: #spine-info"></a-entity>
+          </a-entity>
+          <a-entity id="boneinfo">
+            <a-plane id="skull-info" width="1.8" height="1.4" color="#333" text="value: skull information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+            <a-plane id="rib-info" width="1.8" height="1.4" color="#333" text="value: rib information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+            <a-plane id="leg-info" width="1.8" height="1.4" color="#333" text="value: leg information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+            <a-plane id="spine-info" width="1.8" height="1.4" color="#333" text="value: pelvis information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+          </a-entity>
+        </a-box>
+      </a-box>
+
+      <!-- research level end -->
+      <a-plane id="research-end" color="#333" height="1.8" width="2.5" position="0 2.6 -1" visible="false" switch-scene="from:#research_page; to:#welcome_page" change-environ="src:#sechelt">
+        <a-text value="Congratulations!" color="orange" width="2.2" wrap-count="50" align="center" font="dejavu" position="0 0.77 0"></a-text>
+        <a-text value="You have cleared all the levels and found AVA!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.6 0"></a-text>
+        <a-text value="This final research stage may be the most important part of the whole archaeology process, because it could make great contributions to anthropology, civilization, history, etc. This is the crucial goal for archaeology..." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.3 0"></a-text>
+        <a-text value="This game is based on the real Achavanich Beaker Burial Project. In 1987 the remains of an individual buried over 3,700 years ago was discovered at Achavanich in Caithness in the north of Scotland and Ava was this girl's name. For more information, you can refer to the website: https://achavanichbeakerburial.wordpress.com/." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.3 0"></a-text>
+        <a-text value="Thank you for playing! Hope you enjoy it." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.7 0"></a-text>
+      </a-plane>
+    </a-entity>
+
+    <!-- controller -->
+    <!--<a-entity tracked-controls="controller: 1; idPrefix: OpenVR"></a-entity>-->
+
+    <!-- light -->
+    <a-entity light="type: ambient; intensity: 0.4"></a-entity>
+    <a-entity light="type: directional; castShadow: true; intensity: 1; shadowCameraVisible: true" position="4.78 10.67 8.86" rotation="18.6 0 0"></a-entity>
+
+    <!-- Camera + Cursor -->
+    <a-camera position="0 1 1.5">
+
+      <!-- using tools in hand -->
+      <a-entity id="toolinhand" position="-0.2 0 -1.5">
+        <a-entity id="useshovel" obj-model="obj:#shovel-obj;mtl:#shovel-mtl" position="0.25 0.3 0" rotation="0 0 135" scale="0.4 0.4 0.4" visible="false"></a-entity>
+        <a-entity id="usecompass" obj-model="obj:#compass-obj; mtl:#compass-mtl" scale="0.1 0.1 0.1" rotation="70 0 0" visible="false"></a-entity>
+        <a-entity id="useruler" obj-model="obj:#ruler-obj; mtl:#ruler-mtl" scale="0.05 0.05 0.05" rotation="0 -90 0"  visible="false"></a-entity>
+        <a-entity id="usepeg" obj-model="obj:#peg-obj;mtl:#peg-mtl" scale="0.15 0.15 0.15" rotation="-45 0 45" visible="false"></a-entity>
+        <a-entity id="useline" obj-model="obj:#line-obj;mtl:#line-mtl" scale="0.3 0.3 0.3" rotation="-45 -90 0" visible="false"></a-entity>
+        <a-entity id="usemattock" obj-model="obj:#mattock-obj;mtl:#mattock-mtl" scale="0.3 0.3 0.3" rotation="45 90 0" visible="false"></a-entity>
+        <a-entity id="usetrowel" obj-model="obj:#trowel-obj;mtl:#trowel-mtl" scale="0.1 0.1 0.1" rotation="50 20 45" visible="false"></a-entity>
+        <a-entity id="usebrush" obj-model="obj:#brush-obj; mtl:#brush-mtl" scale="0.1 0.1 0.1" rotation="-90 0 0" visible="false"></a-entity>
+        <!--
+        <a-circle id="useshovel" radius="0.05" src="#shovel-icon" visible="false"></a-circle>
+        <a-circle id="usecompass" radius="0.05" src="#compass-icon" visible="false"></a-circle>
+        <a-circle id="useruler" radius="0.05" src="#ruler-icon" visible="false"></a-circle>
+        <a-circle id="usepeg" radius="0.05" src="#peg-icon" visible="false"></a-circle>
+        <a-circle id="useline" radius="0.05" src="#line-icon" visible="false"></a-circle>
+        <a-circle id="usemattock" radius="0.05" src="#mattock-icon" visible="false"></a-circle>
+        <a-circle id="usetrowel" radius="0.05" src="#trowel-icon" visible="false"></a-circle>
+        <a-circle id="usebrush" radius="0.05" src="#brush-icon" visible="false"></a-circle>
+        -->
+      </a-entity>
+      <!-- using bones in hand -->  
+      <a-entity id="boneinhand" position="-0.2 0 -1.5">
+          <a-entity id="useskull" obj-model="obj:#skull-obj;mtl:#skull-mtl" scale="0.02 0.02 0.02" visible="false"></a-entity>
+          <a-entity id="useleg" obj-model="obj:#leg-obj;mtl:#leg-mtl" scale="0.3 0.3 0.3" visible="false"></a-entity>
+          <a-entity id="userib" obj-model="obj:#rib-obj;mtl:#rib-mtl" scale="0.3 0.3 0.3" rotation="40 0 0" visible="false"></a-entity>
+          <a-entity id="usearm" obj-model="obj:#arm-obj;mtl:#arm-mtl" scale="0.3 0.3 0.3" visible="false"></a-entity>
+          <a-entity id="usespine" obj-model="obj:#spine-obj;mtl:#spine-mtl" scale="0.6 0.6 0.6" visible="false"></a-entity>
+          <a-entity id="use-beaker-left" obj-model="obj:#beaker-left-obj;mtl:#beaker-left-mtl" scale="0.6 0.6 0.6" visible="false"></a-entity>
+          <a-entity id="use-beaker-rightup" obj-model="obj:#beaker-rightup-obj;mtl:#beaker-rightup-mtl" scale="0.6 0.6 0.6" visible="false"></a-entity>
+          <a-entity id="use-beaker-rightdown" obj-model="obj:#beaker-rightdown-obj;mtl:#beaker-rightdown-mtl" scale="0.6 0.6 0.6" visible="false"></a-entity>
+          <!--
+          <a-circle id="useskull" radius="0.05" src="#skull-icon" visible="false"></a-circle>
+          <a-circle id="useleg" radius="0.05" src="#leg-icon" visible="false"></a-circle>
+          <a-circle id="userib" radius="0.05" src="#rib-icon" visible="false"></a-circle>
+          <a-circle id="usearm" radius="0.05" src="#arm-icon" visible="false"></a-circle>
+          <a-circle id="usespine" radius="0.05" src="#spine-icon" visible="false"></a-circle>
+          <a-circle id="use-beaker-left" radius="0.05" src="#beaker-left-icon" visible="false"></a-circle>
+          <a-circle id="use-beaker-rightup" radius="0.05" src="#beaker-rightup-icon" visible="false"></a-circle>
+          <a-circle id="use-beaker-rightdown" radius="0.05" src="#beaker-rightdown-icon" visible="false"></a-circle>
+          -->
+      </a-entity>
+
+      <!-- cursor -->
+      <a-cursor id="cursor" color="#FFF" fuse="false" change-color-on-hover="color:lightgreen; target:#cursor">
+        <!-- cursor animation -->
+        <a-animation begin="click" easing="ease-in" attribute="scale"
+                     fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+        <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                     from="1 1 1" to="0.1 0.1 0.1" dur="150"></a-animation>
+      </a-cursor>
+    </a-camera>
+  </a-scene>
+  </body>
+</html>

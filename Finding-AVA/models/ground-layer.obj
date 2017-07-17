@@ -1,0 +1,12 @@
+# Blender v2.78 (sub 0) OBJ File: 'ground6.blend'
+# www.blender.org
+mtllib ground-layer.mtl
+o Plane.001
+v -5.762479 0.000000 3.878923
+v 5.762479 0.000000 3.878923
+v -5.762479 0.000000 -3.878923
+v 5.762479 0.000000 -3.878923
+vn 0.0000 1.0000 0.0000
+usemtl Ground
+s off
+f 1//1 2//1 4//1 3//1
