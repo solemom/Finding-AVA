@@ -270,10 +270,12 @@ AFRAME.registerComponent('digtent', {
     el.addEventListener('click', function(){
       if(shovel.getAttribute("visible")){
         el.setAttribute("visible","false");
+        document.getElementById("shovel-tool").children[0].setAttribute("material","color:#888");
         progress = 1; // first step to dig tent
         //logtime(progress);
       }
       shovel.setAttribute("visible","false");
+
     });
   }
 });
@@ -380,7 +382,9 @@ AFRAME.registerComponent('usetool', {
   init: function () {
     var el = this.el;
     var toolinhand = document.getElementById("toolinhand");
+    var toolonboard = document.getElementById("toolsinbox");
     var tools = toolinhand.children;
+    var boardtools = toolonboard.children;
     el.addEventListener('click', function(){
       for(var i = 0; i<tools.length; i++){
         if(tools[i].getAttribute("visible")){
@@ -392,27 +396,34 @@ AFRAME.registerComponent('usetool', {
         switch(currenttool){
           case 1:
             document.getElementById("directionline").setAttribute("visible","true");
+            boardtools[7].children[0].setAttribute("material","color:#888");
             break;
           case 2:
             document.getElementById("measurepoint").setAttribute("visible","true");
+            boardtools[6].children[0].setAttribute("material","color:#888");
             break;
           case 3:
             document.getElementById("pegpoint").setAttribute("visible","true");
+            boardtools[1].children[0].setAttribute("material","color:#888");
             break;
           case 4:
             document.getElementById("crossline").setAttribute("visible","true");
+            boardtools[2].children[0].setAttribute("material","color:#888");
             break;
           case 5:
             document.getElementById("discover-ground").children[1].setAttribute("visible","false");
             document.getElementById("discover-ground").children[2].setAttribute("visible","true");
+            boardtools[3].children[0].setAttribute("material","color:#888");
             break;
           case 6:
             document.getElementById("discover-ground").children[2].setAttribute("visible","false");
             document.getElementById("discover-ground").children[3].setAttribute("visible","true");
+            boardtools[4].children[0].setAttribute("material","color:#888");
             break;
           case 7:
             document.getElementById("discover-ground").children[4].setAttribute("visible","true");
             document.getElementById("discover-end").setAttribute("visible","true");
+            boardtools[5].children[0].setAttribute("material","color:#888");
             progress = 3; //third step to dig the ground
             level = 2;
             break;
@@ -500,15 +511,18 @@ AFRAME.registerComponent('scalesomething', {
 AFRAME.registerComponent('changeable', {
   schema: {
     condition:{type:'selector'},
-    action:{type:'string'}
+    action:{type:'string'},
+    icon:{type:'string'}
   },
   init: function () {
     var el = this.el;
     var condition = this.data.condition;
     var action = this.data.action;
+    var icon = this.data.icon;
     el.addEventListener('click', function(){
       if(condition.getAttribute("visible")){
         el.setAttribute("obj-model","obj:"+action+"-obj;mtl:"+action+"-mtl");
+        document.getElementById(icon).children[0].setAttribute("material","color:#888");
         backtocursor();
         buildbeaker++;
         document.getElementById("leftcover").emit("buildingbeaker");
@@ -597,16 +611,19 @@ AFRAME.registerComponent('openleftcover', {
 AFRAME.registerComponent('putbody', {
   schema: {
     bone:{type:'selector'},
-    target: {type: 'selector'}
+    target: {type: 'selector'},
+    icon: {type:'string'}
   },
   init: function () {
     var el = this.el;
     var bone = this.data.bone;
     var target = this.data.target;
+    var icon = this.data.icon;
     el.addEventListener("click", function(){
       if(bone.getAttribute("visible"))
       {
         target.setAttribute("visible","true");
+        document.getElementById(icon).children[0].setAttribute("material","color:#888");
         buildbody++;
         document.getElementById("rightcover").emit("buildingbody");
         backtocursor();

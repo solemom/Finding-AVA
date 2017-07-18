@@ -27,34 +27,34 @@
       <!--<video id="background-video" src="video/background-story-sample.mp4"></video>-->
       <!-- iamges -->
       <img id="sechelt" src="image/sechelt.jpg">
-      <img id="lock" src="image/lock2.png">
-      <img id="discover" src="image/discoverback2.jpg">
+      <img id="lock" src="image/lock.jpg">
+      <img id="discover" src="image/discoverback.jpg">
       <img id="skyback" src="image/sky.jpg">
-      <img id="passwordhint" src="image/passwordhint.png">
-      <img id="dighint" src="image/dighint.png">
+      <img id="passwordhint" src="image/passwordhint.jpg">
+      <img id="dighint" src="image/dighint.jpg">
       <img id="skeleton" src="image/skeleton.jpg">
       <img id="bodyframe" src="image/body.jpg">
       <img id="digsite" src="image/digsite.jpg">
       <img id="beaker-info" src="image/pottery-info.jpg">
       <!-- tools icons on board -->
-      <img id="shovel-icon" src="image/shovel-icon.png">
-      <img id="peg-icon" src="image/peg-icon.png">
-      <img id="line-icon" src="image/line-icon.png">
-      <img id="mattock-icon" src="image/mattock-icon.png">
-      <img id="trowel-icon" src="image/trowel-icon.png">
-      <img id="brush-icon" src="image/brush-icon.png">
-      <img id="ruler-icon" src="image/ruler-icon.png">
-      <img id="compass-icon" src="image/compass-icon.png">
+      <img id="shovel-icon" src="image/shovel-icon.jpg">
+      <img id="peg-icon" src="image/peg-icon.jpg">
+      <img id="line-icon" src="image/line-icon.jpg">
+      <img id="mattock-icon" src="image/mattock-icon.jpg">
+      <img id="trowel-icon" src="image/trowel-icon.jpg">
+      <img id="brush-icon" src="image/brush-icon.jpg">
+      <img id="ruler-icon" src="image/ruler-icon.jpg">
+      <img id="compass-icon" src="image/compass-icon.jpg">
       <!-- bones and debris icons on board -->
-      <img id="skull-icon" src="image/skull-icon.png">
-      <img id="leg-icon" src="image/leg-icon.png">
-      <img id="rib-icon" src="image/rib-icon.png">
-      <img id="arm-icon" src="image/arm-icon.png">
-      <img id="tooth-icon" src="image/tooth-icon.png">
-      <img id="spine-icon" src="image/spine-icon.png">
-      <img id="beaker-left-icon" src="image/beaker-left-icon.png">
-      <img id="beaker-rightup-icon" src="image/beaker-rightup-icon.png">
-      <img id="beaker-rightdown-icon" src="image/beaker-rightdown-icon.png">
+      <img id="skull-icon" src="image/skull-icon.jpg">
+      <img id="leg-icon" src="image/leg-icon.jpg">
+      <img id="rib-icon" src="image/rib-icon.jpg">
+      <img id="arm-icon" src="image/arm-icon.jpg">
+      <img id="tooth-icon" src="image/tooth-icon.jpg">
+      <img id="spine-icon" src="image/spine-icon.jpg">
+      <img id="beaker-left-icon" src="image/beaker-left-icon.jpg">
+      <img id="beaker-rightup-icon" src="image/beaker-rightup-icon.jpg">
+      <img id="beaker-rightdown-icon" src="image/beaker-rightdown-icon.jpg">
       <!-- models -->
       <!-- discover ground -->
       <a-asset-item id="ground-surface-obj" src="models/ground-surface.obj"></a-asset-item>
@@ -121,12 +121,13 @@
       <!-- icon module-->
       <script id="icon" type="text/html">
         <a-entity geometry="primitive: circle; radius:0.3"
-        material="color: #FFF; src: ${thumb}"
+        material="src: ${thumb}"
         sound="on: click; src: #click-sound"
         iconhover>
           <a-circle radius="0.36" color="orange" position="0 0 -0.01" visible="false"></a-circle>
         </a-entity>
       </script>
+
     </a-assets>
 
     <!-- 360-degree background image -->
@@ -216,7 +217,9 @@
     <!-- tool box board -->
       <a-plane id="toolboxboard" color="#555" opacity="0" width="7.5" height="1.5" position="0 3.5 -3.5"> 
         <a-text value="TOOL BOX" font="dejavu" color="#10563a" width="6.5" align="left" position="-3.45 0.5 0"></a-text>
-        <a-entity id="shovel-tool" position="-3.15 -0.2 0.01" template="src: #icon" data-thumb="#shovel-icon" selecttool="selectwhichtool:#useshovel" visible="false"></a-entity>
+        <a-entity id="shovel-tool" template="src: #icon" data-thumb="#shovel-icon" selecttool="selectwhichtool:#useshovel" position="-3.15 -0.2 0.01" visible="false"></a-entity>
+          <a-circle radius="0.36" color="orange" position="0 0 -0.01" visible="false"></a-circle>
+        </a-circle>
         <a-entity id="toolsinbox" layout="layout: line; margin: 0.9" position="-3.15 -0.2 0.01" visible="false">
           <a-entity template="src: #icon" visible="false"></a-entity>
           <a-entity template="src: #icon" data-thumb="#peg-icon" selecttool="selectwhichtool:#usepeg"></a-entity> 
@@ -403,16 +406,16 @@
         <a-plane id="bones-board" color="#555" opacity="0" width="7.5" height="1.5" position="0 0.9 0.6">
           <a-text value="REMAINS" font="dejavu" color="#313c47" width="6.5" align="left" position="-3 0.6 0"></a-text>
           <a-entity layout="layout: line; margin: 0.9" position="-1.5 -0.4 0.01">
-            <a-entity template="src: #icon" data-thumb="#skull-icon" selectbone="selectwhichbone:#useskull"></a-entity>
-            <a-entity template="src: #icon" data-thumb="#leg-icon" selectbone="selectwhichbone:#useleg"></a-entity>
-            <a-entity template="src: #icon" data-thumb="#rib-icon" selectbone="selectwhichbone:#userib"></a-entity>
-            <a-entity template="src: #icon" data-thumb="#arm-icon" selectbone="selectwhichbone:#usearm"></a-entity>
+            <a-entity id="skull-bone" template="src: #icon" data-thumb="#skull-icon" selectbone="selectwhichbone:#useskull"></a-entity>
+            <a-entity id="leg-bone" template="src: #icon" data-thumb="#leg-icon" selectbone="selectwhichbone:#useleg"></a-entity>
+            <a-entity id="rib-bone" template="src: #icon" data-thumb="#rib-icon" selectbone="selectwhichbone:#userib"></a-entity>
+            <a-entity id="arm-bone" template="src: #icon" data-thumb="#arm-icon" selectbone="selectwhichbone:#usearm"></a-entity>
           </a-entity>
           <a-entity layout="layout: line; margin: 0.9" position="-1.5 -1.3 0.01">
-            <a-entity template="src: #icon" data-thumb="#spine-icon" selectbone="selectwhichbone:#usespine"></a-entity>
-            <a-entity template="src: #icon" data-thumb="#beaker-left-icon" selectbone="selectwhichbone:#use-beaker-left"></a-entity>
-            <a-entity template="src: #icon" data-thumb="#beaker-rightup-icon" selectbone="selectwhichbone:#use-beaker-rightup"></a-entity>
-            <a-entity template="src: #icon" data-thumb="#beaker-rightdown-icon" selectbone="selectwhichbone:#use-beaker-rightdown"></a-entity>
+            <a-entity id="spine-bone" template="src: #icon" data-thumb="#spine-icon" selectbone="selectwhichbone:#usespine"></a-entity>
+            <a-entity id="beakerleft-piece" template="src: #icon" data-thumb="#beaker-left-icon" selectbone="selectwhichbone:#use-beaker-left"></a-entity>
+            <a-entity id="beakerrightup-piece" template="src: #icon" data-thumb="#beaker-rightup-icon" selectbone="selectwhichbone:#use-beaker-rightup"></a-entity>
+            <a-entity id="beakerrightdown-piece" template="src: #icon" data-thumb="#beaker-rightdown-icon" selectbone="selectwhichbone:#use-beaker-rightdown"></a-entity>
           </a-entity>
         </a-plane>
 
@@ -467,9 +470,9 @@
           <a-plane text="value:The Beaker;align:center;color:#000;width:1.5" position="0 0.06 1" width="0.5" height="0.2" rotation="-90 0 0" event-set__1="_event: mouseenter; color: orange" event-set__2="_event: mouseleave; color:#FFF" showsomething="target:#beaker-container"></a-plane>
           <a-entity id="beaker-container" position="0 0.45 0" scale="1.5 1.5 1.5" visible="false">
             <a-plane width="auto" height="auto" position="0.08 -0.26 0.5" rotation="-90 0 0" opacity="0" text="value: Please put the remains in the right position.;color: orange"></a-plane>
-            <a-entity obj-model="obj: #beaker-left-obj;" changeable="condition:#use-beaker-left; action:#beaker-left"></a-entity>
-            <a-entity obj-model="obj: #beaker-rightup-obj;" changeable="condition:#use-beaker-rightup; action:#beaker-rightup"></a-entity>
-            <a-entity obj-model="obj: #beaker-rightdown-obj;" changeable="condition:#use-beaker-rightdown;action:#beaker-rightdown"></a-entity>
+            <a-entity obj-model="obj: #beaker-left-obj;" changeable="condition:#use-beaker-left; action:#beaker-left; icon:beakerleft-piece"></a-entity>
+            <a-entity obj-model="obj: #beaker-rightup-obj;" changeable="condition:#use-beaker-rightup; action:#beaker-rightup; icon:beakerrightup-piece"></a-entity>
+            <a-entity obj-model="obj: #beaker-rightdown-obj;" changeable="condition:#use-beaker-rightdown;action:#beaker-rightdown; icon:beakerrightdown-piece"></a-entity>
           </a-entity>
           <!-- beaker age question -->
           <a-plane id="beaker-question" width="1.3" height="1" color="#555" position="0.75 1.4 0.7" visible="false">
@@ -502,23 +505,23 @@
             <a-plane width="1.2" height="2" src="#bodyframe" rotation="-60 0 0">
               <!-- subdivide corresponding position -->
               <!-- 1/4 up to down: skull position-->
-              <a-plane opacity="0" width="1.2" height="0.5" position="0 0.75 0.01" putbody="bone:#useskull; target:#skullmodel">
+              <a-plane opacity="0" width="1.2" height="0.5" position="0 0.75 0.01" putbody="bone:#useskull; target:#skullmodel; icon:skull-bone">
                 <a-entity id="skullmodel" obj-model="obj:#skull-obj; mtl:#skull-mtl" scale="0.02 0.02 0.02" rotation="22.5 -95 -78" visible="false"></a-entity>
               </a-plane>
               <!-- 1/4 up to down-->
               <a-plane opacity="0" width="1.2" height="0.5" position="0 0.25 0.01">
                 <!-- 1/3 left to right: arm position -->
-                <a-plane opacity="0" width="0.4" height="0.5" position="-0.4 0 0.01" putbody="bone:#usearm; target:#armmodel">
+                <a-plane opacity="0" width="0.4" height="0.5" position="-0.4 0 0.01" putbody="bone:#usearm; target:#armmodel; icon:arm-bone">
                   <a-entity id="armmodel" obj-model="obj: #arm-obj; mtl:#arm-mtl" scale="0.3 0.3 0.3" position="0.1 0.1 0" rotation="-5.33 -18.16 -32.65" visible="false"></a-entity>
                 </a-plane>
                 <!-- 1/3 left to right -->
                 <a-plane opacity="0" width="0.4" height="0.5" position="0 0 0.01">
                   <!-- 1/2 up tp down: spine position -->
-                  <a-plane opacity="0" width="0.4" height="0.25" position="0 -0.125 0.01" putbody="bone:#usespine; target:#spinemodel">
+                  <a-plane opacity="0" width="0.4" height="0.25" position="0 -0.125 0.01" putbody="bone:#usespine; target:#spinemodel; icon:spine-bone">
                     <a-entity id="spinemodel" obj-model="obj: #spine-obj; mtl:#spine-mtl" position="0 -0.02 0.06" rotation="10 0 0" scale="0.6 0.6 0.6" visible="false"></a-entity>
                   </a-plane>
                   <!-- 1/2 up tp down: rib position -->
-                  <a-plane opacity="0" width="0.4" height="0.25" position="0 0.125 0.01" putbody="bone:#userib; target:#ribmodel">
+                  <a-plane opacity="0" width="0.4" height="0.25" position="0 0.125 0.01" putbody="bone:#userib; target:#ribmodel; icon:rib-bone">
                     <a-entity id="ribmodel" obj-model="obj: #rib-obj; mtl:#rib-mtl" position="-0.06 0 0" rotation="90 0 0" scale="0.3 0.3 0.3" visible="false"></a-entity>
                   </a-plane>
                 </a-plane>
@@ -526,7 +529,7 @@
                 <a-plane opacity="0" width="0.4" height="0.5" position="0.4 0 0.01"></a-plane>
               </a-plane>
               <!-- 1/4 up to down: leg position -->
-              <a-plane opacity="0" width="1.2" height="0.5" position="0 -0.25 0.01" putbody="bone:#useleg; target:#legmodel">
+              <a-plane opacity="0" width="1.2" height="0.5" position="0 -0.25 0.01" putbody="bone:#useleg; target:#legmodel; icon:leg-bone">
                 <a-entity id="legmodel" obj-model="obj: #leg-obj; mtl:#leg-mtl" position="0.15 0 0" scale="0.3 0.3 0.3" visible="false"></a-entity>
               </a-plane>
               <!-- 1/4 up to down-->
