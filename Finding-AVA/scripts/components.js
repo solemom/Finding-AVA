@@ -1,4 +1,3 @@
-//http://www.cnblogs.com/rubylouvre/archive/2009/08/24/1552862.html(mouse event detection)
 var level = 1;
 var buildbeaker = 0;
 var buildbody = 0;

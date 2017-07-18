@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FINDING AVA</title>
+    <meta name="description" content="Finding Ava research level-- An Archaeology WebVR Game">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://unpkg.com/aframe-line-component/dist/aframe-line-component.min.js"></script>
+    <script src="scripts/components.js"></script>
+    <!--<script src="scripts/gamepad.js"></script>-->
+  </head>
+  <body>
+  <a-scene shadow="type: pcfsoft">
+    <!-- assets to use -->
+    <a-assets>
+      <audio id="click-sound" src="audio/click.wav"></audio>
+      <!-- textures -->
+      <img id="wood" src="image/wood.jpg">
+      <img id="wood2" src="image/wood2.jpg">
+      <img id="whitewood" src="image/whitewood.jpg">
+      <img id="roomground-texture" src="image/roomground.jpg">
+      <img id="roomwall-texture" src="image/roomwall.jpg">
+      <img id="desk" src="image/desk.jpg">
+      <!--<video id="background-video" src="video/background-story-sample.mp4"></video>-->
+
+      <!-- models -->
+      <!-- human remains -->
+      <a-asset-item id="skull-obj" src="models/skull/ava_skull.obj"></a-asset-item>
+      <a-asset-item id="skull-mtl" src="models/skull/ava_skull.mtl"></a-asset-item>
+      <a-asset-item id="arm-obj" src="models/bones/arm.obj"></a-asset-item>
+      <a-asset-item id="arm-mtl" src="models/bones/arm.mtl"></a-asset-item>
+      <a-asset-item id="leg-obj" src="models/bones/leg.obj"></a-asset-item>
+      <a-asset-item id="leg-mtl" src="models/bones/leg.mtl"></a-asset-item>
+      <a-asset-item id="rib-obj" src="models/bones/rib.obj"></a-asset-item>
+      <a-asset-item id="rib-mtl" src="models/bones/rib.mtl"></a-asset-item>
+      <a-asset-item id="spine-obj" src="models/bones/spine.obj"></a-asset-item>
+      <a-asset-item id="spine-mtl" src="models/bones/spine.mtl"></a-asset-item>
+
+      <!-- book shelf -->
+      <a-asset-item id="shelf-obj" src="models/bookshelf.obj"></a-asset-item>
+      <a-asset-item id="shelf-mtl" src="models/bookshelf.mtl"></a-asset-item>
+      <a-asset-item id="book-obj" src="models/book.obj"></a-asset-item>
+      <a-asset-item id="book-mtl" src="models/book.mtl"></a-asset-item>
+
+    </a-assets>
+
+    <!-- 360-degree background image -->
+    <a-sky id="environ" radius="20" src="#skyback" theta-length="90"></a-sky>
+
+    <!-- ======================================== research page ===========================================-->
+    <a-entity id="research_page">
+      <!-- ground and wall -->
+      <!-- down and up-->
+      <a-cylinder id="research-ground" color="#66492d" height="0.2" radius="20" src="#roomground-texture" repeat="20 20"></a-cylinder>
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="8" depth="0.5" rotation="-90 0 0" position="0 6 0"></a-box>
+      <!-- front and back -->
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 -4">
+        <!-- question board -->
+        <a-text value="QUESTIONS" font="dejavu" color="#66492d" width="6.5" align="left" position="-3.4 1.9 0.26"></a-text>
+        <a-entity layout="layout: line; margin: 2.4" position="-2.4 0 0.26">
+          <!-- gender -->
+          <a-plane width="2" height="3" color="#e2cb9c">
+            <a-plane id="ava1" width="2" height="3" color="#555" position="0 0 0.02" opacity="1" visible="false">
+              <a-text value="A" width="70" color="orange" align="center" position="0.22 0.3 0.01" font="dejavu"></a-text>
+            </a-plane>
+            <a-plane color="#66492d" width="2" height="0.85" 
+            text="value: - GENDER -; font: dejavu; width:7; align:center; color:#e2cb9c" position="0 1.05 0.01">
+            </a-plane>
+            <a-entity>
+              <a-plane color="#664" width="2" height="0.65" text="value: Male; width:5; align:center" position="0 0.25 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane id="rightgender" color="#664" width="2" height="0.65" text="value: Female; width:5; align:center" position="0 -0.45 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.65" text="value: Not Sure; width:5; align:center" position="0 -1.15 0.01" event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+            </a-entity>
+          </a-plane>
+          <!-- age -->
+          <a-plane width="2" height="3" color="#e2cb9c">
+            <a-plane id="ava2" width="2" height="3" color="#555" position="0 0 0.02" opacity="1" visible="false">
+              <a-text value="V" width="70" color="orange" align="center" position="0.18 0.3 0.01" font="dejavu"></a-text>
+            </a-plane>
+            <a-plane color="#66492d" width="2" height="0.85" 
+            text="value: - AGE -; font: dejavu; width:7; align:center; color:#e2cb9c" position="0 1.05 0.01">
+            </a-plane>
+            <a-entity>
+              <a-plane color="#664" width="2" height="0.48" text="value: < 18; width:5; align:center" position="0 0.33 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane id="rightage" color="#664" width="2" height="0.48" text="value: 18 - 30; width:5; align:center" position="0 -0.19 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.48" text="value: 30 - 50; width:5; align:center" position="0 -0.71 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.48" text="value: > 50; width:5; align:center" position="0 -1.23 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+            </a-entity>
+          </a-plane>
+          <!-- height -->
+          <a-plane width="2" height="3" color="#e2cb9c">
+            <a-plane id="ava3" width="2" height="3" color="#555" position="0 0 0.02" opacity="1" visible="false">
+              <a-text value="A" width="70" color="orange" align="center" position="0.22 0.3 0.01" font="dejavu"></a-text>
+            </a-plane>
+            <a-plane color="#66492d" width="2" height="0.85" 
+            text="value: - HEIGHT -; font: dejavu; width:7; align:center; color:#e2cb9c" position="0 1.05 0.01">
+            </a-plane>
+            <a-entity>
+              <a-plane color="#664" width="2" height="0.65" text="value: < 1.5m; width:5; align:center" position="0 0.25 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane id="rightheight" color="#664" width="2" height="0.65" text="value: 1.5m - 1.8m; width:5; align:center" position="0 -0.45 0.01" event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+              <a-plane color="#664" width="2" height="0.65" text="value: > 1.8m; width:5; align:center" position="0 -1.15 0.01"
+              event-set__1="_event: mouseenter; text.color:orange"
+              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
+              </a-plane>
+            </a-entity>
+          </a-plane>
+        </a-entity>
+
+        <!-- timer -->
+        <a-plane id="showtime3" color="#66492d" height="0.5" position="0 1.8 0.61" show-end="event:timepassing">
+          <a-text color="#FFF" align="center" width="6"></a-text>
+        </a-plane>
+
+        <!-- help angel -->
+        <a-circle color="#66492d" radius="0.3" text="value:?;align:center;width:8" position="1.7 1.8 0.61"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        showsomething="target:#helpinfo3">
+          <a-animation attribute="position" to="1.7 1.9 0.61" dur="1000" easing="ease-in-out" repeat="indefinite" direction="alternate"></a-animation>
+        </a-circle>
+
+        <!-- HOME button -->
+        <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="2.75 1.7 0.6" sound="on: click; src: #click-sound"
+        text="value:<< HOME; color:#66492d; width:5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#664">
+        </a-plane>
+      </a-box>
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 4"></a-box>
+      <!-- left and right -->
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width=8" height="6" depth="0.5" rotation="0 90 0" position="-4 3 0">
+        <!-- book shelf -->
+        <a-entity obj-model="obj:#shelf-obj; mtl:#shelf-mtl" position="1.7 -2 0.6" scale="10 10 10" rotation="0 -90 0" showsomething="target:#book">
+          <a-entity id="book" obj-model="obj:#book-obj; mtl:#book-mtl" position="0.002 0 0.001" visible="false" showsomething="target:#researchhint"></a-entity>
+        </a-entity>
+      </a-box>
+      <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" rotation="0 -90 0" position="4 3 0"></a-box>
+
+      <!-- help information -->
+      <a-plane id="helpinfo3" color="#333" height="1.2" width="1" position="0 2.5 0" visible="false">
+        <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
+        <a-text value="This final level requires you to find out the answers to the three questions on the wall. By referring to the research book on the shelf, you can get clues on how to get the answers." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="Observe the skeleton models carefully including the specimen standing by the wall. Pay attention to the male and female differences, they are the keys to find AVA." color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.16 0" wrap-count="34" ></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.45 0.01" sound="on: click; src: #click-sound"
+        text="value:Got It!; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#helpinfo3">
+        </a-plane>
+      </a-plane>
+
+      <!-- research hint from book -->
+      <a-plane id="researchhint" color="#FFF" height="1.8" width="2.5" position="0 2.6 -1" visible="false">
+        <a-text value="Human Skeleton Identification Methods" color="#000" width="2" font="dejavu" align="center"></a-text>
+        <!-- ok button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.5 0.01"
+        text="value:OK; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#researchhint">
+        </a-plane>
+      </a-plane>
+
+      <!-- desk -->
+      <a-box src="#wood2" width="2.5" height="1.5" depth="2" color="#a37d58" position="0.2 0 -2">
+        <a-box src="#desk" width="4" height="0.1" depth="2.6" color="#d8ab7f" position="0 0.8 0">
+          <a-entity id="boneondesk">
+            <a-entity obj-model="obj:#skull-obj; mtl:#skull-mtl" position="-1.1 0 0.5" scale="0.035 0.035 0.035" showboneinfo="scaleto:0.05 0.05 0.05; positionto:-1 1.5 0; target: #skull-info"></a-entity>
+            <a-entity obj-model="obj:#rib-obj; mtl:#rib-mtl" position="-0.3 0.22 0.5" rotation="30 0 0" scale="0.8 0.8 0.8" showboneinfo="scaleto:1 1 1; positionto:-1 1.8 0; target: #rib-info"></a-entity>
+            <a-entity obj-model="obj:#leg-obj; mtl:#leg-mtl" position="0.6 0.1 0.4" scale="0.6 0.6 0.6" rotation="90 30 0" showboneinfo="scaleto:1 1 1; positionto:-1 1.8 0; target: #leg-info"></a-entity>
+            <a-entity obj-model="obj:#spine-obj; mtl:#spine-mtl" position="1.25 0.2 0.5" scale="1.2 1.2 1.2" rotation="-90 0 0" showboneinfo="scaleto:1.5 1.5 1.5; positionto:-1 1.8 0; target: #spine-info"></a-entity>
+          </a-entity>
+          <a-entity id="boneinfo">
+            <a-plane id="skull-info" width="1.8" height="1.4" color="#333" text="value: skull information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+            <a-plane id="rib-info" width="1.8" height="1.4" color="#333" text="value: rib information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+            <a-plane id="leg-info" width="1.8" height="1.4" color="#333" text="value: leg information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+            <a-plane id="spine-info" width="1.8" height="1.4" color="#333" text="value: pelvis information; align:center; width:3" position="0.6 2 0" visible="false"></a-plane>
+          </a-entity>
+        </a-box>
+      </a-box>
+
+      <!-- research level end -->
+      <a-plane id="research-end" color="#333" height="1.8" width="2.5" position="0 2.6 -1" visible="false">
+        <a-text value="Congratulations!" color="orange" width="2.2" wrap-count="50" align="center" font="dejavu" position="0 0.77 0"></a-text>
+        <a-text value="You have cleared all the levels and found AVA!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.6 0"></a-text>
+        <a-text value="This final research stage may be the most important part of the whole archaeology process, because it could make great contributions to anthropology, civilization, history, etc. This is the crucial goal for archaeology..." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.3 0"></a-text>
+        <a-text value="This game is based on the real Achavanich Beaker Burial Project. In 1987 the remains of an individual buried over 3,700 years ago was discovered at Achavanich in Caithness in the north of Scotland and Ava was this girl's name. For more information, you can refer to the website: https://achavanichbeakerburial.wordpress.com/." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.3 0"></a-text>
+        <a-text value="Thank you for playing! Hope you enjoy it." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.7 0"></a-text>
+      </a-plane>
+    </a-entity>
+
+    <!-- controller -->
+    <!--<a-entity tracked-controls="controller: 1; idPrefix: OpenVR"></a-entity>-->
+
+    <!-- light -->
+    <a-entity light="type: ambient; intensity: 0.4"></a-entity>
+    <a-entity light="type: directional; castShadow: true; intensity: 1; shadowCameraVisible: true" position="4.78 10.67 8.86" rotation="18.6 0 0"></a-entity>
+
+    <!-- Camera + Cursor -->
+    <a-camera position="0 1 1.5">
+
+      <!-- cursor -->
+      <a-cursor id="cursor" color="#FFF" fuse="false" change-color-on-hover="color:lightgreen; target:#cursor">
+        <!-- cursor animation -->
+        <a-animation begin="click" easing="ease-in" attribute="scale"
+                     fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+        <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                     from="1 1 1" to="0.1 0.1 0.1" dur="150"></a-animation>
+      </a-cursor>
+    </a-camera>
+  </a-scene>
+  </body>
+</html>

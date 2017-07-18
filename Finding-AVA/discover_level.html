@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FINDING AVA</title>
+    <meta name="description" content="Finding Ava discover level-- An Archaeology WebVR Game">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.x.x/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://unpkg.com/aframe-line-component/dist/aframe-line-component.min.js"></script>
+    <script src="scripts/components.js"></script>
+    <!--<script src="scripts/gamepad.js"></script>-->
+  </head>
+  <body>
+  <a-scene shadow="type: pcfsoft">
+    <!-- assets to use -->
+    <a-assets>
+      <audio id="click-sound" src="audio/click.wav"></audio>
+
+      <!-- iamges -->
+      <img id="discover" src="image/discoverback.jpg">
+      <img id="passwordhint" src="image/passwordhint.jpg">
+      <img id="dighint" src="image/dighint.jpg">
+      <img id="digsite" src="image/digsite.jpg">
+
+      <!-- tools icons on board -->
+      <img id="shovel-icon" src="image/shovel-icon.jpg">
+      <img id="peg-icon" src="image/peg-icon.jpg">
+      <img id="line-icon" src="image/line-icon.jpg">
+      <img id="mattock-icon" src="image/mattock-icon.jpg">
+      <img id="trowel-icon" src="image/trowel-icon.jpg">
+      <img id="brush-icon" src="image/brush-icon.jpg">
+      <img id="ruler-icon" src="image/ruler-icon.jpg">
+      <img id="compass-icon" src="image/compass-icon.jpg">
+
+      <!-- models -->
+      <!-- discover ground -->
+      <a-asset-item id="ground-surface-obj" src="models/ground-surface.obj"></a-asset-item>
+      <a-asset-item id="ground-surface-mtl" src="models/ground-surface.mtl"></a-asset-item>
+      <a-asset-item id="ground-layer-obj" src="models/ground-layer.obj"></a-asset-item>
+      <a-asset-item id="ground-layer-mtl" src="models/ground-layer.mtl"></a-asset-item>
+      <a-asset-item id="ground-dig1-obj" src="models/ground-dig1.obj"></a-asset-item>
+      <a-asset-item id="ground-dig1-mtl" src="models/ground-dig1.mtl"></a-asset-item>
+      <a-asset-item id="ground-dig2-obj" src="models/ground-dig2.obj"></a-asset-item>
+      <a-asset-item id="ground-dig2-mtl" src="models/ground-dig2.mtl"></a-asset-item>
+      <!-- tools -->
+      <a-asset-item id="shovel-obj" src="models/tools/shovel2.obj"></a-asset-item>
+      <a-asset-item id="shovel-mtl" src="models/tools/shovel2.mtl"></a-asset-item>
+      <a-asset-item id="mattock-obj" src="models/tools/mattock.obj"></a-asset-item>
+      <a-asset-item id="mattock-mtl" src="models/tools/mattock.mtl"></a-asset-item>
+      <a-asset-item id="compass-obj" src="models/tools/compass.obj"></a-asset-item>
+      <a-asset-item id="compass-mtl" src="models/tools/compass.mtl"></a-asset-item>
+      <a-asset-item id="ruler-obj" src="models/tools/ruler.obj"></a-asset-item>
+      <a-asset-item id="ruler-mtl" src="models/tools/ruler.mtl"></a-asset-item>
+      <a-asset-item id="trowel-obj" src="models/tools/trowel.obj"></a-asset-item>
+      <a-asset-item id="trowel-mtl" src="models/tools/trowel.mtl"></a-asset-item>
+      <a-asset-item id="brush-obj" src="models/tools/brush.obj"></a-asset-item>
+      <a-asset-item id="brush-mtl" src="models/tools/brush.mtl"></a-asset-item>
+      <a-asset-item id="peg-obj" src="models/tools/peg.obj"></a-asset-item>
+      <a-asset-item id="peg-mtl" src="models/tools/peg.mtl"></a-asset-item>
+      <a-asset-item id="line-obj" src="models/tools/line.obj"></a-asset-item>
+      <a-asset-item id="line-mtl" src="models/tools/line.mtl"></a-asset-item>
+      <!-- items on the ground -->
+      <a-asset-item id="toolbox-obj" src="models/toolbox.obj"></a-asset-item>
+      <a-asset-item id="toolbox-mtl" src="models/toolbox.mtl"></a-asset-item>
+      <a-asset-item id="toolbox-open-obj" src="models/toolbox-open.obj"></a-asset-item>
+      <a-asset-item id="toolbox-open-mtl" src="models/toolbox-open.mtl"></a-asset-item>
+      <a-asset-item id="tent-obj" src="models/tent.obj"></a-asset-item>
+      <a-asset-item id="tent-mtl" src="models/tent.mtl"></a-asset-item>
+      
+      <!-- icon module-->
+      <script id="icon" type="text/html">
+        <a-entity geometry="primitive: circle; radius:0.3"
+        material="src: ${thumb}"
+        sound="on: click; src: #click-sound"
+        iconhover>
+          <a-circle radius="0.36" color="orange" position="0 0 -0.01" visible="false"></a-circle>
+        </a-entity>
+      </script>
+
+    </a-assets>
+
+    <!-- 360-degree background image -->
+    <a-sky id="environ" radius="20" src="#discover" theta-length="90"></a-sky>
+
+    <!-- ======================================== discover page ===========================================-->
+    <a-entity id="discover_page">
+    <!-- tool box board -->
+      <a-plane id="toolboxboard" color="#555" opacity="0" width="7.5" height="1.5" position="0 3.5 -3.5"> 
+        <a-text value="TOOL BOX" font="dejavu" color="#10563a" width="6.5" align="left" position="-3.45 0.5 0"></a-text>
+        <a-entity id="shovel-tool" template="src: #icon" data-thumb="#shovel-icon" selecttool="selectwhichtool:#useshovel" position="-3.15 -0.2 0.01" visible="false"></a-entity>
+          <a-circle radius="0.36" color="orange" position="0 0 -0.01" visible="false"></a-circle>
+        </a-circle>
+        <a-entity id="toolsinbox" layout="layout: line; margin: 0.9" position="-3.15 -0.2 0.01" visible="false">
+          <a-entity template="src: #icon" visible="false"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#peg-icon" selecttool="selectwhichtool:#usepeg"></a-entity> 
+          <a-entity template="src: #icon" data-thumb="#line-icon" selecttool="selectwhichtool:#useline"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#mattock-icon" selecttool="selectwhichtool:#usemattock"></a-entity> 
+          <a-entity template="src: #icon" data-thumb="#trowel-icon" selecttool="selectwhichtool:#usetrowel"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#brush-icon" selecttool="selectwhichtool:#usebrush"></a-entity>
+          <a-entity template="src: #icon" data-thumb="#ruler-icon" selecttool="selectwhichtool:#useruler"></a-entity> 
+          <a-entity template="src: #icon" data-thumb="#compass-icon" selecttool="selectwhichtool:#usecompass"></a-entity>
+        </a-entity>
+      </a-plane>
+
+      <!-- timer -->
+      <a-plane id="showtime1" color="#10563a" height="0.5" position="0 4 -3.49">
+        <a-text color="#FFF" align="center" width="6"></a-text>
+      </a-plane>
+
+      <!-- help angel -->
+      <a-circle color="#10563a" radius="0.3" text="value:?;align:center;width:8" position="2.2 4 -3.49" 
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#FFF"
+      showsomething="target:#helpinfo1">
+        <a-animation attribute="position" to="2.2 4.1 -3.49" dur="1000" easing="ease-in-out" repeat="indefinite" direction="alternate"></a-animation>
+      </a-circle>
+
+      <!-- help information -->
+      <a-plane id="helpinfo1" color="#333" height="1.2" width="1" position="0 2.5 0" visible="false">
+        <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
+        <a-text value="This level aims to get you know more about archaeology excavation tools. You need to use information in the notebook to unlock the tool box. They both are hidden under the tent." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="Please pay attention to the numbers which indicate the corresponding password digit position as well as the using order of these tools. If you don't follow the order, it won't work!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.16 0" wrap-count="34" ></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.34" height="0.13" position="0 -0.45 0.01" sound="on: click; src: #click-sound"
+        text="value:Got It!; color:#FFF; width:1.5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF"
+        hidesomething="target:#helpinfo1">
+        </a-plane>
+      </a-plane>
+
+      <!-- HOME button -->
+      <a-plane color="#10563a" opacity="0" width="1.2" height="0.5" position="3.1 3.94 -3.4" sound="on: click; src: #click-sound"
+      text="value:<< HOME; color:#10563a; width:5; font:dejavu; align:center"
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#10563a">
+      </a-plane>
+
+      <!-- ground -->
+      <a-entity id="discover-ground" usetool>
+        <a-entity obj-model="obj: #ground-surface-obj; mtl: #ground-surface-mtl" shadow="receive: true"></a-entity>
+        <a-entity obj-model="obj: #ground-layer-obj; mtl: #ground-layer-mtl" shadow="receive: true"></a-entity>
+        <a-entity obj-model="obj: #ground-dig1-obj; mtl: #ground-dig1-mtl" shadow="receive: true" visible="false"></a-entity>
+        <a-entity obj-model="obj: #ground-dig2-obj; mtl: #ground-dig2-mtl" shadow="receive: true" visible="false"></a-entity>
+        <a-plane src="#digsite" width="2.5" height="1.5" position="1.25 -1.66 -0.75" rotation="-90 0 0" visible="false"></a-plane>
+      </a-entity>
+
+      <!-- items on the ground -->
+      <!-- shovel -->
+      <a-entity id="shovel-model" obj-model="obj: #shovel-obj; mtl: #shovel-mtl" scale="1.5 1.5 1.5" rotation="-90 225 0"  position="-4.6 0.05 -2.37" addtool="name:#shovel-tool"></a-entity>
+
+      <!-- tent -->
+      <!--<a-sphere id="tent-model" color="#227B94" radius="1" position="-1.87 -0.1 -2" digtent></a-sphere>-->
+      <a-entity id="tent-model" obj-model="obj: #tent-obj; mtl: #tent-mtl" position="-1.9 0 -2.14" rotation="0 -90 0" scale="1.2 1.5 1.5" digtent></a-entity>
+
+      <!-- toolbox -->
+      <a-entity id="toolbox-model" obj-model="obj: #toolbox-obj; mtl: #toolbox-mtl" position="-1.88 0.35 -2.18" showlock></a-entity>
+      <a-entity id="toolbox-open-model" obj-model="obj: #toolbox-open-obj; mtl: #toolbox-open-mtl" position="-1.88 0.35 -2.18" visible="false"></a-entity>
+
+      <!-- alphabet lock on the toolbox -->
+      <a-plane color="#CCC" width="0.2" height="0.15" position="-1.88 0.45 -1.91"></a-plane>
+      <a-plane id="letterlock" color="#CCC" width="0.2" height="0.15" position="-1.88 0.45 -1.91">
+        <a-text id="locktext" color="#000" value="Alphabet Lock" font="dejavu" width="0.3" align="center" position="0 0.06 0"></a-text>
+        <!-- lock digits -->
+        <a-entity id="lockdigits" layout="layout: line; margin: 0.03" position="-0.075 0.01 0.001">
+          <!-- first digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#firstdigit"></a-entity>
+            <a-text id="firstdigit" value="A" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#firstdigit"></a-entity>
+          </a-plane>
+          <!-- second digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#seconddigit"></a-entity>
+            <a-text id="seconddigit" value="T" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#seconddigit"></a-entity>
+          </a-plane>
+          <!-- third digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#thirddigit"></a-entity>
+            <a-text id="thirddigit" value="O" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#thirddigit"></a-entity>
+          </a-plane>
+          <!-- fourth digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#fourthdigit"></a-entity>
+            <a-text id="fourthdigit" value="M" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#fourthdigit"></a-entity>
+          </a-plane>
+          <!-- fifth digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#fifthdigit"></a-entity>
+            <a-text id="fifthdigit" value="O" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#fifthdigit"></a-entity>
+          </a-plane>
+          <!-- sixth digit -->
+          <a-plane color="#000" width="0.02" height="0.03">
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="opacity:0" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#sixthdigit"></a-entity>
+            <a-text id="sixthdigit" value="Y" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="opacity:0" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#sixthdigit"></a-entity>
+          </a-plane>
+        </a-entity>
+        <!-- open lock button -->
+        <a-plane id="openlock" color="#555" width="0.08" height="0.03" position="0 -0.05 0.001"
+        text="value:OPEN; color:#FFF; width:0.3; font:dejavu; align:center" 
+        event-set__1="_event: mouseenter; text.color:orange" 
+        event-set__2="_event: mouseleave; text.color:#FFF" openlock>
+        </a-plane>
+      </a-plane>
+
+      <!-- notebook -->
+      <a-box id="notebook-model" color="#362F19" width="0.3" height="0.05" depth="0.5" position="-2.3 0.175 -1.55">
+      </a-box>
+      <a-text color="#FFF" value="NOTEBOOK" font="dejavu" width="0.8" align="center" position="-2.3 0.225 -1.64" rotation="-90 0 0"></a-text>
+      <a-plane src="#passwordhint" width="0.35" height="0.25" position="-2 0.175 -1.5" rotation="-90 60 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:-0.1 2.5 -0.75"></a-plane> 
+      <a-plane src="#dighint" width="0.35" height="0.25" position="-1.7 0.15 -1.5" rotation="-90 -75 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:-0.1 2.5 -0.75"></a-plane>
+
+      <!-- flag -->
+      <a-cylinder id="flag-model" color="#F5DE4C" height="2.5" radius="0.02" position="-0.48 1.3 -2" shadow="cast: true">
+        <a-plane color="#F5DE4C" width="1.2" height="0.8" position="0.6 0.85 0">
+          <a-text value="Archaeology Expedition" align="center" width="2" color="#000"></a-text> 
+        </a-plane>
+      </a-cylinder>
+
+      <!-- using compass -->
+      <a-entity id="directionline" visible="false" usetool>
+        <a-entity line="start:-0.5 0.11 -2; end:-0.5 0.11 1"></a-entity>
+        <a-entity line="start:-0.5 0.11 -2; end:2.5 0.11 -2"></a-entity>
+      </a-entity>
+      <!-- using ruler -->
+      <a-entity id="measurepoint" visible="false" usetool>
+        <a-circle radius="0.03" position="-0.5 0.11 -1" rotation="-90 0 0"></a-circle>
+        <a-circle radius="0.03" position="-0.5 0.11 0" rotation="-90 0 0"></a-circle>
+        <a-circle radius="0.03" position="0.5 0.11 -2" rotation="-90 0 0"></a-circle>
+        <a-circle radius="0.03" position="1.5 0.11 -2" rotation="-90 0 0"></a-circle>
+      </a-entity>
+      <!-- using peg -->
+      <a-entity id="pegpoint" visible="false" usetool>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="-0.5 0.11 -1"></a-cylinder>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="-0.5 0.11 0"></a-cylinder>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="0.5 0.11 -2"></a-cylinder>
+        <a-cylinder color="#883421" radius="0.03" height="0.1" position="1.5 0.11 -2"></a-cylinder>
+      </a-entity>
+      <!-- using line -->
+      <a-entity id="crossline" visible="false" usetool>
+        <a-entity line="start:-0.5 0.11 -1; end:2.5 0.11 -1"></a-entity>
+        <a-entity line="start:-0.5 0.11 0; end:2.5 0.11 0"></a-entity>
+        <a-entity line="start:0.5 0.11 -2; end:0.5 0.11 1"></a-entity>
+        <a-entity line="start:1.5 0.11 -2; end:1.5 0.11 1"></a-entity>
+      </a-entity>
+
+      <!-- discover level end -->
+      <a-plane id="discover-end" color="#333" height="1.8" width="2.5" position="0 2.6 -1" visible="false">
+        <a-text value="Congratulations!" color="orange" width="2.2" wrap-count="50" align="center" font="dejavu" position="0 0.77 0"></a-text>
+        <a-text value="You have cleared the first level!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.6 0"></a-text>
+        <a-text value="Excavation retains its central role in fieldwork because it yields the most reliable evidence for further research. It relies on methods designed to elucidate the horizontal extent of a site in space and the vertical stratification representing changes through time. Good recording methods are essential, although they are not included in the game. Besides, there are many other important tools like geophysics georadar, total station, plumb line, screen, etc." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.075 0"></a-text>
+        <a-text value="Next level, we will go to the laboratory for processing and classifying the finds." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.5 0"></a-text>
+        <!-- back button -->
+        <a-plane color="#000" width="0.5" height="0.2" position="0 -0.75 0.01" sound="on: click; src: #click-sound"
+        text="value:OK; color:#FFF; width:2; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#FFF">
+        </a-plane>
+      </a-plane>
+    </a-entity>
+
+    <!-- light -->
+    <a-entity light="type: ambient; intensity: 0.4"></a-entity>
+    <a-entity light="type: directional; castShadow: true; intensity: 1; shadowCameraVisible: true" position="4.78 10.67 8.86" rotation="18.6 0 0"></a-entity>
+
+    <!-- Camera + Cursor -->
+    <a-camera position="0 1 1.5">
+
+      <!-- using tools in hand -->
+      <a-entity id="toolinhand" position="-0.2 0 -1.5">
+        <a-entity id="useshovel" obj-model="obj:#shovel-obj;mtl:#shovel-mtl" position="0.25 0.3 0" rotation="0 0 135" scale="0.4 0.4 0.4" visible="false"></a-entity>
+        <a-entity id="usecompass" obj-model="obj:#compass-obj; mtl:#compass-mtl" scale="0.1 0.1 0.1" rotation="70 0 0" visible="false"></a-entity>
+        <a-entity id="useruler" obj-model="obj:#ruler-obj; mtl:#ruler-mtl" scale="0.05 0.05 0.05" rotation="0 -90 0"  visible="false"></a-entity>
+        <a-entity id="usepeg" obj-model="obj:#peg-obj;mtl:#peg-mtl" scale="0.15 0.15 0.15" rotation="-45 0 45" visible="false"></a-entity>
+        <a-entity id="useline" obj-model="obj:#line-obj;mtl:#line-mtl" scale="0.3 0.3 0.3" rotation="-45 -90 0" visible="false"></a-entity>
+        <a-entity id="usemattock" obj-model="obj:#mattock-obj;mtl:#mattock-mtl" scale="0.3 0.3 0.3" rotation="45 90 0" visible="false"></a-entity>
+        <a-entity id="usetrowel" obj-model="obj:#trowel-obj;mtl:#trowel-mtl" scale="0.1 0.1 0.1" rotation="50 20 45" visible="false"></a-entity>
+        <a-entity id="usebrush" obj-model="obj:#brush-obj; mtl:#brush-mtl" scale="0.1 0.1 0.1" rotation="-90 0 0" visible="false"></a-entity>
+      </a-entity>
+
+      <!-- cursor -->
+      <a-cursor id="cursor" color="#FFF" fuse="false" change-color-on-hover="color:lightgreen; target:#cursor">
+        <!-- cursor animation -->
+        <a-animation begin="click" easing="ease-in" attribute="scale"
+                     fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+        <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                     from="1 1 1" to="0.1 0.1 0.1" dur="150"></a-animation>
+      </a-cursor>
+    </a-camera>
+  </a-scene>
+  </body>
+</html>
