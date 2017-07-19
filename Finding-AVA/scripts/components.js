@@ -688,7 +688,7 @@ AFRAME.registerComponent('checkbody', {
     this.eventHandlerFn = function () {
       if(buildbody>=5)
       {
-        //target.setAttribute("src","#bodyfinish");
+        target.setAttribute("src","#bodyfinish");
         document.getElementById("rightcover").appendChild(rightanimation);
         progress = progress + 1;//step to open the right cover
         opendesk--;
