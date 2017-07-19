@@ -29,10 +29,16 @@ function timedCount(){
   var showmin = Math.floor(usingtime/60);
   var showsec = usingtime - (showmin * 60);
   var showtime = checkTime(showmin)+":"+checkTime(showsec);
-  document.getElementById("showtime1").children[0].setAttribute("value", showtime);
-  document.getElementById("showtime2").children[0].setAttribute("value", showtime);
-  document.getElementById("showtime3").children[0].setAttribute("value", showtime);
-  document.getElementById("showtime3").emit("timepassing");
+  if(document.getElementById("showtime1")){
+    document.getElementById("showtime1").children[0].setAttribute("value", showtime);
+  }
+  if(document.getElementById("showtime2")){
+    document.getElementById("showtime2").children[0].setAttribute("value", showtime);
+  }
+  if(document.getElementById("showtime3")){
+    document.getElementById("showtime3").children[0].setAttribute("value", showtime);
+    document.getElementById("showtime3").emit("timepassing");
+  }
 }
 
 function checkTime(i){
@@ -102,18 +108,31 @@ AFRAME.registerComponent('change-color-on-hover',{
     });
   }
 });
-      
-AFRAME.registerComponent('set-image', {
-  schema: {
-    src:{type:'string'},
-    target: {type: 'selector'}
-  },
-  init: function () {
+
+AFRAME.registerComponent('clickable',{
+  init:function(){
     var el = this.el;
-    var src = this.data.src;
-    var sky = this.data.target;
-    el.addEventListener('click', function(){
-      sky.setAttribute('src', src);
+    var originalscaleX = el.getAttribute("scale").x;
+    var originalscaleY = el.getAttribute("scale").y;
+    var originalscaleZ = el.getAttribute("scale").z;
+    var toscaleX = originalscaleX +0.2;
+    var toscaleY = originalscaleY +0.2;
+    var toscaleZ = originalscaleZ +0.2;
+    var anim = document.createElement("a-animation");
+    anim.setAttribute("attribute","scale");
+    anim.setAttribute("to",toscaleX.toString()+" "+toscaleY.toString()+" "+toscaleZ.toString());
+    anim.setAttribute("repeat","indefinite");
+    anim.setAttribute("direction","alternate");
+    anim.setAttribute("easing","ease-in-out");
+    anim.setAttribute("dur","1200");
+    el.addEventListener('mouseenter',function(){
+      el.appendChild(anim);
+    });
+    el.addEventListener('mouseleave',function(){
+      if(el.querySelector("a-animation")){
+        el.removeChild(el.querySelector("a-animation"));
+      }
+      el.setAttribute("scale",originalscaleX.toString()+" "+originalscaleY.toString()+" "+originalscaleZ.toString());
     });
   }
 });
@@ -467,11 +486,15 @@ AFRAME.registerComponent('scalesomething', {
   schema: {
     scaleto: {type: 'vec3'},
     positionto: {type: 'vec3'},
+    pinposition: {type: 'vec3'},
+    pinrotation: {type: 'vec3'}
   },
   init: function () {
     var el = this.el;
     var scaleto = this.data.scaleto;
     var positionto = this.data.positionto;
+    var pinposition = this.data.pinposition;
+    var pinrotation = this.data.pinrotation;
     var originalscale = el.getAttribute("scale");
     var originalposition = el.getAttribute("position");
     var originalrotation = el.getAttribute("rotation");
@@ -493,9 +516,21 @@ AFRAME.registerComponent('scalesomething', {
             }
             else
             {
-              el.setAttribute("scale",originalscale);
-              el.setAttribute("position",originalposition);
-              el.setAttribute("rotation",originalrotation);
+              //el.setAttribute("scale",originalscale);
+              //el.setAttribute("position",originalposition);
+              //el.setAttribute("rotation",originalrotation);
+              var anim = document.createElement("a-animation");
+              anim.setAttribute("attribute","position");
+              anim.setAttribute("to",pinposition.x.toString()+" "+pinposition.y.toString()+" "+pinposition.z.toString());
+              anim.setAttribute("easing","ease-in-out");
+              anim.setAttribute("dur","2000");
+              var anim2 = document.createElement("a-animation");
+              anim2.setAttribute("attribute","rotation");
+              anim2.setAttribute("to",pinrotation.x.toString()+" "+pinrotation.y.toString()+" "+pinrotation.z.toString());
+              anim2.setAttribute("easing","ease-in-out");
+              anim2.setAttribute("dur","2000");
+              el.appendChild(anim);
+              el.appendChild(anim2);
             }
           }
         }

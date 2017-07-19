@@ -502,11 +502,15 @@ AFRAME.registerComponent('scalesomething', {
   schema: {
     scaleto: {type: 'vec3'},
     positionto: {type: 'vec3'},
+    pinposition: {type: 'vec3'},
+    pinrotation: {type: 'vec3'}
   },
   init: function () {
     var el = this.el;
     var scaleto = this.data.scaleto;
     var positionto = this.data.positionto;
+    var pinposition = this.data.pinposition;
+    var pinrotation = this.data.pinrotation;
     var originalscale = el.getAttribute("scale");
     var originalposition = el.getAttribute("position");
     var originalrotation = el.getAttribute("rotation");
@@ -528,9 +532,21 @@ AFRAME.registerComponent('scalesomething', {
             }
             else
             {
-              el.setAttribute("scale",originalscale);
-              el.setAttribute("position",originalposition);
-              el.setAttribute("rotation",originalrotation);
+              //el.setAttribute("scale",originalscale);
+              //el.setAttribute("position",pinposition);
+              //el.setAttribute("rotation",pinrotation);
+              var anim = document.createElement("a-animation");
+              anim.setAttribute("attribute","position");
+              anim.setAttribute("to",pinposition.x.toString()+" "+pinposition.y.toString()+" "+pinposition.z.toString());
+              anim.setAttribute("easing","ease-in-out");
+              anim.setAttribute("dur","2000");
+              var anim2 = document.createElement("a-animation");
+              anim2.setAttribute("attribute","rotation");
+              anim2.setAttribute("to",pinrotation.x.toString()+" "+pinrotation.y.toString()+" "+pinrotation.z.toString());
+              anim2.setAttribute("easing","ease-in-out");
+              anim2.setAttribute("dur","2000");
+              el.appendChild(anim);
+              el.appendChild(anim2);
             }
           }
         }
