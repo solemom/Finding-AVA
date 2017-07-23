@@ -732,7 +732,7 @@ AFRAME.registerComponent('radiobutton',{
         document.getElementById("ava3").setAttribute("visible","true");
         document.getElementById("researchhint").setAttribute("src","#avaface");
         endtime = usingtime;
-        logtime(progress);
+        //logtime(progress);
       }
     })
   }
