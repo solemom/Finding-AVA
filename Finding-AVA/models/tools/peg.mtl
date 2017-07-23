@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd trowel-texture.png
+map_Kd trowel-texture.jpg
 
 newmtl Material.003
 Ns 96.078431
