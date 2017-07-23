@@ -105,8 +105,8 @@
       <a-asset-item id="beaker-rightdown-obj" src="models/mybeaker-rightdown.obj"></a-asset-item>
       <a-asset-item id="beaker-rightdown-mtl" src="models/mybeaker-rightdown.mtl"></a-asset-item>
       <!-- human remains -->
-      <a-asset-item id="skull-obj" src="models/skull/ava_skull.obj"></a-asset-item>
-      <a-asset-item id="skull-mtl" src="models/skull/ava_skull.mtl"></a-asset-item>
+      <a-asset-item id="skull-obj" src="models/myskull.obj"></a-asset-item>
+      <a-asset-item id="skull-mtl" src="models/myskull.mtl"></a-asset-item>
       <a-asset-item id="arm-obj" src="models/bones/arm.obj"></a-asset-item>
       <a-asset-item id="arm-mtl" src="models/bones/arm.mtl"></a-asset-item>
       <a-asset-item id="leg-obj" src="models/bones/leg.obj"></a-asset-item>
@@ -196,18 +196,12 @@
         </a-plane>
         <!-- second identify level -->
         <a-plane id="identify_link" width="1" height="1" src="#level2" color="#333" sound="on: click; src: #click-sound"
-        text="value:IDENTIFY; color:#FFF; width:3; font:dejavu; align:center"
-        switch-scene="from:#level_page; to:#identify_page"
-        event-set__1="_event: mouseenter; text.color:orange"
-        event-set__2="_event: mouseleave; text.color:#FFF">
+        text="value:IDENTIFY; color:#FFF; width:3; font:dejavu; align:center">
         <a-plane id="locked1" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
         </a-plane>
         <!-- third research level --> 
         <a-plane id="research_link" width="1" height="1" color="#333" sound="on: click; src: #click-sound"
-        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center"
-        switch-scene="from:#level_page; to:#research_page"
-        event-set__1="_event: mouseenter; text.color:orange"
-        event-set__2="_event: mouseleave; text.color:#FFF">
+        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center">
         <a-plane id="locked2" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
         </a-plane>
       </a-entity>
@@ -529,7 +523,7 @@
               <!-- subdivide corresponding position -->
               <!-- 1/4 up to down: skull position-->
               <a-plane opacity="0" width="1.2" height="0.5" position="0 0.75 0.01" putbody="bone:#useskull; target:#skullmodel; icon:skull-bone">
-                <a-entity id="skullmodel" obj-model="obj:#skull-obj; mtl:#skull-mtl" scale="0.02 0.02 0.02" rotation="22.5 -95 -78" visible="false"></a-entity>
+                <a-entity id="skullmodel" obj-model="obj:#skull-obj; mtl:#skull-mtl" position="0 -0.07 0" scale="0.2 0.2 0.2" rotation="45 0 0" visible="false"></a-entity>
               </a-plane>
               <!-- 1/4 up to down-->
               <a-plane opacity="0" width="1.2" height="0.5" position="0 0.25 0.01">
@@ -701,7 +695,7 @@
       </a-plane>   
 
       <!-- help information -->
-      <a-plane id="helpinfo3" color="#333" height="1" width="1" position="0 2.5 0" metalness="0.5" visible="false">
+      <a-plane id="helpinfo3" color="#333" height="1" width="1" position="0 2.7 0" metalness="0.5" visible="false">
         <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.4 0"></a-text>
         <a-text value="In this final level you will need to answer the three questions on the wall. Refer to the research book on the shelf and to the objects in front to figure out the answers. Pay close attention to any information which will help you find the answers. This is the key to finding Ava." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.07 0" wrap-count="34" ></a-text>
         <a-text value="Click the bones to get the detailed information and click it again to put it back." color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.32 0" wrap-count="34" ></a-text>
@@ -717,7 +711,7 @@
       <a-box src="#wood2" width="2.5" height="1.5" depth="2" color="#a37d58" position="0 0 -2">
         <a-box src="#desk" width="4" height="0.1" depth="2.6" color="#d8ab7f" position="0 0.8 0">
           <a-entity id="boneondesk">
-            <a-entity obj-model="obj:#skull-obj; mtl:#skull-mtl" position="-1.1 0 0.5" scale="0.035 0.035 0.035" showboneinfo="scaleto:0.05 0.05 0.05; positionto:-1 1.5 0; target: #skull-info"></a-entity>
+            <a-entity obj-model="obj:#skull-obj; mtl:#skull-mtl" position="-1.1 0.08 0.5" rotation="0 45 0" scale="0.3 0.3 0.3" showboneinfo="scaleto:0.5 0.5 0.5; positionto:-1 1.5 0; target: #skull-info"></a-entity>
             <a-entity obj-model="obj:#rib-obj; mtl:#rib-mtl" position="-0.3 0.22 0.5" rotation="30 0 0" scale="0.8 0.8 0.8" showboneinfo="scaleto:1 1 1; positionto:-1 2 0; target: #rib-info"></a-entity>
             <a-entity obj-model="obj:#leg-obj; mtl:#leg-mtl" position="0.6 0.1 0.4" scale="0.6 0.6 0.6" rotation="90 30 0" showboneinfo="scaleto:1 1 1; positionto:-1 2 0; target: #leg-info"></a-entity>
             <a-entity obj-model="obj:#spine-obj; mtl:#spine-mtl" position="1.25 0.2 0.5" scale="1.2 1.2 1.2" rotation="-90 0 0" showboneinfo="scaleto:1.5 1.5 1.5; positionto:-1 1.8 0; target: #spine-info"></a-entity>
@@ -786,7 +780,7 @@
       </a-entity>
       <!-- using bones in hand -->  
       <a-entity id="boneinhand" position="-0.2 0 -1.5">
-          <a-entity id="useskull" obj-model="obj:#skull-obj;mtl:#skull-mtl" scale="0.02 0.02 0.02" visible="false"></a-entity>
+          <a-entity id="useskull" obj-model="obj:#skull-obj;mtl:#skull-mtl" scale="0.2 0.2 0.2" visible="false"></a-entity>
           <a-entity id="useleg" obj-model="obj:#leg-obj;mtl:#leg-mtl" scale="0.3 0.3 0.3" visible="false"></a-entity>
           <a-entity id="userib" obj-model="obj:#rib-obj;mtl:#rib-mtl" scale="0.3 0.3 0.3" rotation="40 0 0" visible="false"></a-entity>
           <a-entity id="usearm" obj-model="obj:#arm-obj;mtl:#arm-mtl" scale="0.3 0.3 0.3" visible="false"></a-entity>

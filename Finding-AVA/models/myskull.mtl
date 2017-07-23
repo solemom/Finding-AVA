@@ -1,35 +1,35 @@
-# Blender MTL File: 'None'
+# Blender MTL File: 'skull.blend'
 # Material Count: 3
 
-newmtl Material.001
-Ns 94.117647
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd trowel-handle-texture.jpg
-
-newmtl trowel
-Ns 94.117647
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd trowel-texture.jpg
-
-newmtl trowel.001
+newmtl Material
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
+Kd 0.784556 0.800000 0.555021
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd trowel-texture.jpg
+map_Kd skull\ava_skull_T8.jpg
+
+newmtl Material_ava_skull_T13.jpg
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.784556 0.800000 0.555021
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd skull\ava_skull_T13.jpg
+
+newmtl Material_ava_skull_T5.jpg
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.784556 0.800000 0.555021
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd skull\ava_skull_T5.jpg
