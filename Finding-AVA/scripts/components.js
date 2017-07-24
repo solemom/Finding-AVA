@@ -9,6 +9,14 @@ var endtime = 0;
 var timer;
 var numberoftiming = 1;
 var progress = 0;
+var milestone = new Array();
+milestone[0] = "Tent digged:";
+milestone[1] = "Lock opened:";
+milestone[2] = "Ground digged:";
+milestone[3] = "Left cover opened:";
+milestone[4] = "Right cover opened:";
+milestone[5] = "Book found:";
+milestone[6] = "AVA found:";
 
 window.onload = function(){
   level = 1;
@@ -77,9 +85,9 @@ function doSave(value, type, name) {
 }  
 
 function logtime(i){
-  var a =  i.toString()+":"+usingtime.toString();
-  doSave(a, "text/latex", "avatime.txt");   
-  //console.log(i.toString()+":"+usingtime.toString());
+  var a =  i.toString()+"-"+milestone[i-1]+usingtime.toString();
+  doSave(a, "text/latex", "avatime.txt");
+  //console.log(a);
 }
 
 function backtocursor(){
@@ -291,7 +299,7 @@ AFRAME.registerComponent('digtent', {
         el.setAttribute("visible","false");
         document.getElementById("shovel-tool").children[0].setAttribute("material","color:#888");
         progress = 1; // first step to dig tent
-        //logtime(progress);
+        logtime(progress);
       }
       shovel.setAttribute("visible","false");
 
@@ -391,7 +399,7 @@ AFRAME.registerComponent('openlock', {
         document.getElementById("toolbox-open-model").setAttribute("visible","true");
         document.getElementById("toolsinbox").setAttribute("visible","true");
         progress = 2; // second step to open lock
-        //logtime(progress);
+        logtime(progress);
       }
     });
   }
@@ -444,6 +452,7 @@ AFRAME.registerComponent('usetool', {
             document.getElementById("discover-end").setAttribute("visible","true");
             boardtools[5].children[0].setAttribute("material","color:#888");
             progress = 3; //third step to dig the ground
+            logtime(progress);
             level = 2;
             break;
         }
@@ -465,6 +474,7 @@ AFRAME.registerComponent('showsomething', {
       target.setAttribute('visible','true');
       if(target == document.getElementById("researchhint")){
         progress = progress + 1; // step to find the book on the shelf
+        logtime(progress);
       }
     });
   }
@@ -625,6 +635,7 @@ AFRAME.registerComponent('openleftcover', {
       leftanimation.setAttribute("fill","both");
       document.getElementById("leftcover").appendChild(leftanimation);
       progress = progress + 1; //step to open the left cover
+      logtime(progress);
       opendesk--;
       if(opendesk==0)
       {
@@ -692,6 +703,7 @@ AFRAME.registerComponent('checkbody', {
         target.setAttribute("src","#bodyfinish");
         document.getElementById("rightcover").appendChild(rightanimation);
         progress = progress + 1;//step to open the right cover
+        logtime(progress);
         opendesk--;
         if(opendesk==0)
         {
@@ -725,14 +737,13 @@ AFRAME.registerComponent('radiobutton',{
       var gender = document.getElementById("rightgender").getAttribute("color");
       var age = document.getElementById("rightage").getAttribute("color");
       var height = document.getElementById("rightheight").getAttribute("color");
-      if(gender=="#66492d" && age=="#66492d" && height=="#66492d"){
+      var environ = document.getElementById("rightenviron").getAttribute("color");
+      if(gender=="#66492d" && age=="#66492d" && height=="#66492d" && environ=="#66492d"){
         progress = progress + 1;//final progress to answer the questions
-        document.getElementById("ava1").setAttribute("visible","true");
-        document.getElementById("ava2").setAttribute("visible","true");
-        document.getElementById("ava3").setAttribute("visible","true");
+        document.getElementById("avatext").setAttribute("visible","true");
         document.getElementById("researchhint").setAttribute("src","#avaface");
         endtime = usingtime;
-        //logtime(progress);
+        logtime(progress);
       }
     })
   }

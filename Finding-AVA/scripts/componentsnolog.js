@@ -21,7 +21,6 @@ window.onload = function(){
   endtime = 0;
   numberoftiming = 1;
   progress = 0;
-  timedCount();
 }
 
 function timedCount(){
@@ -109,18 +108,29 @@ AFRAME.registerComponent('change-color-on-hover',{
     });
   }
 });
-      
-AFRAME.registerComponent('set-image', {
-  schema: {
-    src:{type:'string'},
-    target: {type: 'selector'}
+
+AFRAME.registerComponent('clickable',{
+  schema:{
+    condition:{type:'selector'},
+    target:{type:'selector'}
   },
-  init: function () {
+  init:function(){
     var el = this.el;
-    var src = this.data.src;
-    var sky = this.data.target;
-    el.addEventListener('click', function(){
-      sky.setAttribute('src', src);
+    var target = this.data.target;
+    var condition = this.data.condition;
+    //var light = el.querySelector("a-light");
+    el.addEventListener('mouseenter',function(){
+      if(condition){
+        if(condition.getAttribute("visible")){
+          target.setAttribute("visible","true");
+        }
+      }
+      else{
+        target.setAttribute("visible","true");
+      }
+    });
+    el.addEventListener('mouseleave',function(){
+      target.setAttribute("visible","false");
     });
   }
 });
@@ -133,34 +143,6 @@ AFRAME.registerComponent('iconhover',{
     });
     el.addEventListener('mouseleave',function(){
       el.children[0].setAttribute("visible","false");
-    });
-  }
-});
-
-AFRAME.registerComponent('clickable',{
-  init:function(){
-    var el = this.el;
-    var originalscaleX = el.getAttribute("scale").x;
-    var originalscaleY = el.getAttribute("scale").y;
-    var originalscaleZ = el.getAttribute("scale").z;
-    var toscaleX = originalscaleX +0.2;
-    var toscaleY = originalscaleY +0.2;
-    var toscaleZ = originalscaleZ +0.2;
-    var anim = document.createElement("a-animation");
-    anim.setAttribute("attribute","scale");
-    anim.setAttribute("to",toscaleX.toString()+" "+toscaleY.toString()+" "+toscaleZ.toString());
-    anim.setAttribute("repeat","indefinite");
-    anim.setAttribute("direction","alternate");
-    anim.setAttribute("easing","ease-in-out");
-    anim.setAttribute("dur","1200");
-    el.addEventListener('mouseenter',function(){
-      el.appendChild(anim);
-    });
-    el.addEventListener('mouseleave',function(){
-      if(el.querySelector("a-animation")){
-        el.removeChild(el.querySelector("a-animation"));
-      }
-      el.setAttribute("scale",originalscaleX.toString()+" "+originalscaleY.toString()+" "+originalscaleZ.toString());
     });
   }
 });
@@ -196,6 +178,9 @@ AFRAME.registerComponent('switch-scene', {
         timedCount();
         numberoftiming = 0;
       }
+      if((targetScene == document.getElementById("welcome_page")) && (previousScene == document.getElementById("research_page"))){
+        window.location.reload();
+      }
     });
   }
 });
@@ -219,14 +204,14 @@ AFRAME.registerComponent('levels', {
           identifylink.setAttribute("event-set__1","_event: mouseenter; text.color:orange");
           identifylink.setAttribute("event-set__2","_event: mouseleave; text.color:#FFF");
           identifylink.setAttribute("switch-scene","from:#level_page; to:#identify_page");
-          identifylink.setAttribute("change-environ","src:#skyback");
+          //identifylink.setAttribute("change-environ","src:#sky");
           break;
         case 3:
           lock2.setAttribute("visible","false");
           researchlink.setAttribute("event-set__1","_event: mouseenter; text.color:orange");
           researchlink.setAttribute("event-set__2","_event: mouseleave; text.color:#FFF");
           researchlink.setAttribute("switch-scene","from:#level_page; to:#research_page");
-          researchlink.setAttribute("change-environ","src:#skyback");
+          //researchlink.setAttribute("change-environ","src:#sky");
           break;
       }
     };
@@ -249,7 +234,7 @@ AFRAME.registerComponent('change-environ', {
     var el = this.el;
     el.addEventListener('click', function(){
       document.getElementById("environ").setAttribute("src",src);
-      if((src.indexOf("discover")>=0) || (src.indexOf("identify")>=0) || (src.indexOf("research")>=0))
+      if(src.indexOf("sky")>=0)
       {
         document.getElementById("environ").setAttribute("theta-length","90");
       }
@@ -337,7 +322,7 @@ AFRAME.registerComponent('showlock', {
             lockanimation1.setAttribute("dur","300");
             lockanimation1.setAttribute("fill","both");
             lockanimation2.setAttribute("attribute","position");
-            lockanimation2.setAttribute("to","-0.1 2.5 -0.8");
+            lockanimation2.setAttribute("to","0 2.5 -0.8");
             lockanimation2.setAttribute("easing","linear");
             lockanimation2.setAttribute("dur","300");
             lockanimation2.setAttribute("fill","both");
@@ -533,8 +518,8 @@ AFRAME.registerComponent('scalesomething', {
             else
             {
               //el.setAttribute("scale",originalscale);
-              //el.setAttribute("position",pinposition);
-              //el.setAttribute("rotation",pinrotation);
+              //el.setAttribute("position",originalposition);
+              //el.setAttribute("rotation",originalrotation);
               var anim = document.createElement("a-animation");
               anim.setAttribute("attribute","position");
               anim.setAttribute("to",pinposition.x.toString()+" "+pinposition.y.toString()+" "+pinposition.z.toString());
@@ -688,7 +673,7 @@ AFRAME.registerComponent('checkbody', {
   },
   init: function () {
     var self = this;
-    var target = document.getElementById("body");
+    var target = document.getElementById("bodyline");
     var rightanimation = document.createElement("a-animation");
     rightanimation.setAttribute("attribute","position");
     rightanimation.setAttribute("to","1.5 1.05 0");
@@ -704,7 +689,7 @@ AFRAME.registerComponent('checkbody', {
     this.eventHandlerFn = function () {
       if(buildbody>=5)
       {
-        //target.setAttribute("src","#bodyfinish");
+        target.setAttribute("src","#bodyfinish");
         document.getElementById("rightcover").appendChild(rightanimation);
         progress = progress + 1;//step to open the right cover
         opendesk--;
@@ -740,13 +725,13 @@ AFRAME.registerComponent('radiobutton',{
       var gender = document.getElementById("rightgender").getAttribute("color");
       var age = document.getElementById("rightage").getAttribute("color");
       var height = document.getElementById("rightheight").getAttribute("color");
-      if(gender=="#66492d" && age=="#66492d" && height=="#66492d"){
+      var environ = document.getElementById("rightenviron").getAttribute("color");
+      if(gender=="#66492d" && age=="#66492d" && height=="#66492d" && environ=="#66492d"){
         progress = progress + 1;//final progress to answer the questions
-        document.getElementById("ava1").setAttribute("visible","true");
-        document.getElementById("ava2").setAttribute("visible","true");
-        document.getElementById("ava3").setAttribute("visible","true");
+        document.getElementById("avatext").setAttribute("visible","true");
+        document.getElementById("researchhint").setAttribute("src","#avaface");
         endtime = usingtime;
-        logtime(progress);
+        //logtime(progress);
       }
     })
   }
@@ -823,6 +808,32 @@ AFRAME.registerComponent('showboneinfo', {
   }
 });
 
+AFRAME.registerComponent('movetowall', {
+  schema: {
+    position: {type: 'vec3'},
+    rotation: {type: 'vec3'}
+  },
+  init: function () {
+    var el = this.el;
+    var pinposition = this.data.position;
+    var pinrotation = this.data.rotation;
+    el.addEventListener("click", function(){
+      var anim = document.createElement("a-animation");
+      anim.setAttribute("attribute","position");
+      anim.setAttribute("to",pinposition.x.toString()+" "+pinposition.y.toString()+" "+pinposition.z.toString());
+      anim.setAttribute("easing","ease-in-out");
+      anim.setAttribute("dur","2000");
+      var anim2 = document.createElement("a-animation");
+      anim2.setAttribute("attribute","rotation");
+      anim2.setAttribute("to",pinrotation.x.toString()+" "+pinrotation.y.toString()+" "+pinrotation.z.toString());
+      anim2.setAttribute("easing","ease-in-out");
+      anim2.setAttribute("dur","2000");
+      el.appendChild(anim);
+      el.appendChild(anim2);
+    })
+  }          
+});
+
 AFRAME.registerComponent('show-end',{
   schema:{
     event:{type:'string'},
@@ -839,87 +850,32 @@ AFRAME.registerComponent('show-end',{
     }
   }
 });
+
 /*
-AFRAME.registerComponent('check-if-play', {
-  schema: {
-    src:{type:'string'},
-    target:{type:'selector'}
-  },
-  init: function () {
+AFRAME.registerComponent('clickable',{
+  init:function(){
     var el = this.el;
-    var src = this.data.src;
-    var target = this.data.target;
-    el.addEventListener('click', function(){
-      //target.setAttribute('src',"");
-      target.setAttribute('src',src);
+    var originalscaleX = el.getAttribute("scale").x;
+    var originalscaleY = el.getAttribute("scale").y;
+    var originalscaleZ = el.getAttribute("scale").z;
+    var toscaleX = originalscaleX +0.2;
+    var toscaleY = originalscaleY +0.2;
+    var toscaleZ = originalscaleZ +0.2;
+    var anim = document.createElement("a-animation");
+    anim.setAttribute("attribute","scale");
+    anim.setAttribute("to",toscaleX.toString()+" "+toscaleY.toString()+" "+toscaleZ.toString());
+    anim.setAttribute("repeat","indefinite");
+    anim.setAttribute("direction","alternate");
+    anim.setAttribute("easing","ease-in-out");
+    anim.setAttribute("dur","1200");
+    el.addEventListener('mouseenter',function(){
+      el.appendChild(anim);
     });
-  }
-});
-
-AFRAME.registerComponent('check-if-play', {
-  schema: {
-    src:{type:'string'},
-    target:{type:'selector'}
-  },
-  init: function () {
-    var el = this.el;
-    var src = this.data.src;
-    var target = this.data.target;
-    el.addEventListener('click', function(){
-      var video = document.createElement("a-videosphere");
-      video.setAttribute("src",src);
-      video.setAttribute("radius",10);
-      video.setAttribute("autoplay",false);
-      video.setAttribute("rotation",0 180 0);
-      target.appendChild(video);
-    });
-  }
-});
-
-AFRAME.registerComponent('clickrotate', {
-  init: function () {
-    var el = this.el; 
-    el.addEventListener("click",function(){
-      var currentStateY = el.getAttribute("rotation").y;
-      var targetStateY = currentStateY-180;
-      var hintanimation = document.createElement("a-animation");
-      hintanimation.setAttribute("attribute","rotation");
-      hintanimation.setAttribute("to","0 "+targetStateY.toString()+" 0");
-      hintanimation.setAttribute("dur","300");
-      hintanimation.setAttribute("fill","both");
-      el.appendChild(hintanimation);
-    })
-  }
-});
-
-AFRAME.registerComponent('showhint', {
-  init: function () {
-    var el = this.el;
-    var toolinhand = document.getElementById("toolinhand");
-    var tools = toolinhand.children;
-    var hint = document.getElementById("hint");
-    el.addEventListener('click', function()
-    {
-      var i = 0;
-      while(i<tools.length)
-      {
-        if(!tools[i].getAttribute("visible")){
-          i=i+1;
-          if(i==tools.length){
-            if(hint.getAttribute("visible")){
-              hint.setAttribute("visible","false");
-            }
-            else
-            {
-              hint.setAttribute("rotation","0 0 0");
-              hint.setAttribute("visible","true");
-            }
-          }
-        }
-        else{
-          break;
-        }
+    el.addEventListener('mouseleave',function(){
+      if(el.querySelector("a-animation")){
+        el.removeChild(el.querySelector("a-animation"));
       }
+      el.setAttribute("scale",originalscaleX.toString()+" "+originalscaleY.toString()+" "+originalscaleZ.toString());
     });
   }
 });
