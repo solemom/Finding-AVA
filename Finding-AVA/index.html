@@ -351,10 +351,10 @@
       <a-box id="notebook-model" color="#362F19" width="0.3" height="0.05" depth="0.5" position="-2.3 0.025 -1.55">
       </a-box>
       <a-text color="#FFF" value="NOTEBOOK" font="dejavu" width="0.8" align="center" position="-2.3 0.06 -1.64" rotation="-90 0 0"></a-text>
-      <a-plane src="#passwordhint" width="0.35" height="0.25" position="-2 0.01 -1.5" shader="flat" rotation="-90 60 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:-0.1 2.5 -0.75; pinposition:-3.2 2.5 -1.6; pinrotation:0 60 0" clickable="target:#hint1light">
+      <a-plane src="#passwordhint" width="0.35" height="0.25" position="-2 0.01 -1.5" shader="flat" rotation="-90 60 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:0 2.5 -0.75; pinposition:-3.2 2.5 -1.6; pinrotation:0 60 0" clickable="target:#hint1light">
         <a-light id="hint1light" type="point" intensity="0.8" decay="0.8" distance="0.6" position="0 0 0.3" visible="false"></a-light>
       </a-plane> 
-      <a-plane src="#dighint" width="0.35" height="0.25" position="-1.6 0.01 -1.5" shader="flat" rotation="-90 -75 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:-0.1 2.5 -0.75; pinposition:3.2 2.5 -1.6; pinrotation:0 -60 0" clickable="target:#hint2light">
+      <a-plane src="#dighint" width="0.35" height="0.25" position="-1.6 0.01 -1.5" shader="flat" rotation="-90 -75 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:0 2.5 -0.75; pinposition:3.2 2.5 -1.6; pinrotation:0 -60 0" clickable="target:#hint2light">
         <a-light id="hint2light" type="point" intensity="0.8" decay="0.8" distance="0.6" position="0 0 0.3" visible="false"></a-light>
       </a-plane>
 
@@ -441,7 +441,7 @@
         </a-plane>
 
         <!-- timer --> 
-        <a-plane id="showtime2" height="0.5" color="#313c47" position="0 1.5 0.61">
+        <a-plane id="showtime2" height="0.5" color="#313c47" position="0 1.5 0.61" hide-error="event:errortime">
           <a-text color="#FFF" align="center" width="6"></a-text>
         </a-plane>
 
@@ -562,9 +562,9 @@
       <!-- identify level end -->
       <a-plane id="identify-end" color="#333" height="1.8" width="2.5" position="0 3 -1.5" metalness="0.5" visible="false">
         <a-plane text="value:CONGRATULATIONS; color:orange; font:dejavu; align:center; width:2" color="#000" position="0 0.9 0.01" width="1" height="0.3"></a-plane>
-        <a-text value="You have cleared the second level!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.6 0"></a-text>
-        <a-text value="The main job during this stage is to identify the remains and categorise them. Once an archaeologist has identified an object they can sometimes determine how old it is. Some objects have different styles, such as pottery. Each style is unique to different places and periods in time. This practice is known as typology. Organic remains, such as bone, can be dated through a process called radiocarbon dating. By combining these methods archaeologists achieve the most reliable results." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.027 0"></a-text>
-        <a-text value="In the next level we will go to the research centre to learn more about the remains." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.62 0"></a-text>
+        <a-text value="You have cleared the second level!" color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.65 0"></a-text>
+        <a-text value="The main job during this stage is to identify the remains and categorise them. Once an archaeologist has identified an object they can sometimes determine how old it is. Some objects have different styles, such as pottery. Each style is unique to different places and periods in time. This practice is known as typology. Organic remains, such as bone, can be dated through a process called radiocarbon dating. In addition, isotopic analysis could give information like diet. By combining these methods archaeologists achieve the most reliable results." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 0.027 0"></a-text>
+        <a-text value="In the next level we will go to the research centre to learn more about the remains." color="#FFF" width="2.2" wrap-count="50" align="left" font="dejavu" position="-1.1 -0.65 0"></a-text>
         <a-entity line="start:-1.25 0.9 0; end:1.25 0.9 0; color:orange"></a-entity>
         <a-entity line="start:-1.25 -0.9 0; end:1.25 -0.9 0; color:orange"></a-entity>
         <!-- back button -->

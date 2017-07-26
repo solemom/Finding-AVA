@@ -37,6 +37,7 @@ function timedCount(){
   }
   if(document.getElementById("showtime2")){
     document.getElementById("showtime2").children[0].setAttribute("value", showtime);
+    document.getElementById("showtime2").emit("errortime");
   }
   if(document.getElementById("showtime3")){
     document.getElementById("showtime3").children[0].setAttribute("value", showtime);
@@ -457,7 +458,7 @@ AFRAME.registerComponent('usetool', {
         var camera = document.querySelector("a-camera");
         var errormsg = document.createElement("a-text");
         errormsg.setAttribute("value","Wrong Tool!");
-        errormsg.setAttribute("color","darkred");
+        errormsg.setAttribute("color","#000");
         errormsg.setAttribute("width","2");
         errormsg.setAttribute("position","0.2 0 -1.5");
         camera.appendChild(errormsg);
@@ -476,7 +477,7 @@ AFRAME.registerComponent('hide-error',{
     var el = this.el;
     if(evt){
       el.addEventListener(evt, function(){
-        if((errortime!=0) && (usingtime == errortime + 1)){
+        if((errortime!=0) && (usingtime == errortime + 2)){
           var camera = document.querySelector("a-camera");
           if(camera.querySelector("a-text")){
              camera.removeChild(camera.querySelector("a-text")); 
@@ -595,6 +596,16 @@ AFRAME.registerComponent('changeable', {
         buildbeaker++;
         document.getElementById("leftcover").emit("buildingbeaker");
       }
+      else{
+        var camera = document.querySelector("a-camera");
+        var errormsg = document.createElement("a-text");
+        errormsg.setAttribute("value","Wrong Position!");
+        errormsg.setAttribute("color","darkred");
+        errormsg.setAttribute("width","2");
+        errormsg.setAttribute("position","0.2 0 -1.5");
+        camera.appendChild(errormsg);
+        errortime = usingtime;
+      }
     });
   }
 });
@@ -695,6 +706,17 @@ AFRAME.registerComponent('putbody', {
         buildbody++;
         document.getElementById("rightcover").emit("buildingbody");
         backtocursor();
+      }
+      else
+      {
+        var camera = document.querySelector("a-camera");
+        var errormsg = document.createElement("a-text");
+        errormsg.setAttribute("value","Wrong Position!");
+        errormsg.setAttribute("color","darkred");
+        errormsg.setAttribute("width","2");
+        errormsg.setAttribute("position","0.2 0 -1.5");
+        camera.appendChild(errormsg);
+        errortime = usingtime;
       }
     });
   }
