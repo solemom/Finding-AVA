@@ -317,7 +317,7 @@ AFRAME.registerComponent('showlock', {
             var lockanimation1 = document.createElement("a-animation");
             var lockanimation2 = document.createElement("a-animation");
             lockanimation1.setAttribute("attribute","scale");
-            lockanimation1.setAttribute("to","6 6 6");
+            lockanimation1.setAttribute("to","7 7 7");
             lockanimation1.setAttribute("easing","ease-in");
             lockanimation1.setAttribute("dur","300");
             lockanimation1.setAttribute("fill","both");
