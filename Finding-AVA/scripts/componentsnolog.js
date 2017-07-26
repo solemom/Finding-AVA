@@ -9,6 +9,7 @@ var endtime = 0;
 var timer;
 var numberoftiming = 1;
 var progress = 0;
+var errortime = 0;
 
 window.onload = function(){
   level = 1;
@@ -21,6 +22,7 @@ window.onload = function(){
   endtime = 0;
   numberoftiming = 1;
   progress = 0;
+  errortime = 0;
 }
 
 function timedCount(){
@@ -31,6 +33,7 @@ function timedCount(){
   var showtime = checkTime(showmin)+":"+checkTime(showsec);
   if(document.getElementById("showtime1")){
     document.getElementById("showtime1").children[0].setAttribute("value", showtime);
+    document.getElementById("showtime1").emit("errortime");
   }
   if(document.getElementById("showtime2")){
     document.getElementById("showtime2").children[0].setAttribute("value", showtime);
@@ -450,7 +453,37 @@ AFRAME.registerComponent('usetool', {
         previoustool=previoustool+1;
         tools[currenttool].setAttribute("visible","false");
       }
+      else{
+        var camera = document.querySelector("a-camera");
+        var errormsg = document.createElement("a-text");
+        errormsg.setAttribute("value","Wrong Tool!");
+        errormsg.setAttribute("color","darkred");
+        errormsg.setAttribute("width","2");
+        errormsg.setAttribute("position","0.2 0 -1.5");
+        camera.appendChild(errormsg);
+        errortime = usingtime;
+      }
     });
+  }
+});
+
+AFRAME.registerComponent('hide-error',{
+  schema:{
+    event:{type:'string'},
+  },
+  update:function(){
+    var evt = this.data.event;
+    var el = this.el;
+    if(evt){
+      el.addEventListener(evt, function(){
+        if((errortime!=0) && (usingtime == errortime + 1)){
+          var camera = document.querySelector("a-camera");
+          if(camera.querySelector("a-text")){
+             camera.removeChild(camera.querySelector("a-text")); 
+          }
+        }
+      });
+    }
   }
 });
 
