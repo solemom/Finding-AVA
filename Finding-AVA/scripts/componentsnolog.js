@@ -460,7 +460,7 @@ AFRAME.registerComponent('usetool', {
         errormsg.setAttribute("value","Wrong Tool!");
         errormsg.setAttribute("color","#000");
         errormsg.setAttribute("width","2");
-        errormsg.setAttribute("position","0.2 0 -1.5");
+        errormsg.setAttribute("position","0.1 0 -1.5");
         camera.appendChild(errormsg);
         errortime = usingtime;
       }
@@ -600,9 +600,9 @@ AFRAME.registerComponent('changeable', {
         var camera = document.querySelector("a-camera");
         var errormsg = document.createElement("a-text");
         errormsg.setAttribute("value","Wrong Position!");
-        errormsg.setAttribute("color","darkred");
+        errormsg.setAttribute("color","yellow");
         errormsg.setAttribute("width","2");
-        errormsg.setAttribute("position","0.2 0 -1.5");
+        errormsg.setAttribute("position","0.1 0 -1.5");
         camera.appendChild(errormsg);
         errortime = usingtime;
       }
@@ -712,9 +712,9 @@ AFRAME.registerComponent('putbody', {
         var camera = document.querySelector("a-camera");
         var errormsg = document.createElement("a-text");
         errormsg.setAttribute("value","Wrong Position!");
-        errormsg.setAttribute("color","darkred");
+        errormsg.setAttribute("color","yellow");
         errormsg.setAttribute("width","2");
-        errormsg.setAttribute("position","0.2 0 -1.5");
+        errormsg.setAttribute("position","0.1 0 -1.5");
         camera.appendChild(errormsg);
         errortime = usingtime;
       }
