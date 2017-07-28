@@ -388,7 +388,7 @@ AFRAME.registerComponent('openlock', {
       var digit4 = document.getElementById("fourthdigit").getAttribute("value");
       var digit5 = document.getElementById("fifthdigit").getAttribute("value");
       var digit6 = document.getElementById("sixthdigit").getAttribute("value");
-      if(digit1=="C" && digit2=="R" && digit3=="P" && digit4=="L" && digit5=="M" && digit6=="T")
+      if(digit1=="L" && digit2=="R" && digit3=="M" && digit4=="C" && digit5=="P" && digit6=="T")
       {
         document.getElementById("letterlock").setAttribute("visible","false");
         document.getElementById("toolbox-model").setAttribute("visible","false");
@@ -457,7 +457,7 @@ AFRAME.registerComponent('usetool', {
       else{
         var camera = document.querySelector("a-camera");
         var errormsg = document.createElement("a-text");
-        errormsg.setAttribute("value","Wrong Tool!");
+        errormsg.setAttribute("value","Wrong tool! Mind the using order!");
         errormsg.setAttribute("color","#000");
         errormsg.setAttribute("width","2");
         errormsg.setAttribute("position","0.1 0 -1.5");

@@ -31,6 +31,7 @@
       <img id="sky" src="image/sky.jpg">
       <img id="passwordhint" src="image/passwordhint.jpg">
       <img id="dighint" src="image/dighint.jpg">
+      <img id="lockback" src="image/letterlockback.jpg">
       <img id="skeleton" src="image/skeleton.jpg">
       <img id="bodyframe" src="image/body.jpg">
       <img id="bodyfinish" src="image/bodyfinish.jpg">
@@ -254,7 +255,7 @@
       <a-plane id="helpinfo1" color="#333" height="1.2" width="1" position="0 2.7 -0.5" metalness="0.5" visible="false">
         <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
         <a-text value="This level will teach you about the tools and process of archaeological excavation. You need to use the information on the notebook pages to unlock the tool box. These are hidden beneath the tent." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
-        <a-text value="Pay close attention to the numbers beside the tools. These will help you solve the sequence of the tool box password. They also tell you the order to use the tools. If you don’t follow the order, it won’t work!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.2 0" wrap-count="34" ></a-text>
+        <a-text value="Pay close attention to the numbers and little patterns beside the tools. Patterns will help you solve the sequence of the tool box password, numbers will indicate the using order of tools. If you don’t follow the order, it won’t work!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.2 0" wrap-count="34" ></a-text>
         <!-- back button -->
         <a-circle radius="0.05" text="value:<; width:1.5; align:center" color="#000" position="0.5 0.49 0.01"
         event-set__1="_event: mouseenter; color:orange"
@@ -297,21 +298,21 @@
       <a-entity id="toolbox-open-model" obj-model="obj: #toolbox-open-obj; mtl: #toolbox-open-mtl" position="-1.88 0.25 -2.18" visible="false"></a-entity>
 
       <!-- alphabet lock on the toolbox -->
-      <a-plane color="#CCC" width="0.2" height="0.15" position="-1.88 0.38 -1.91"></a-plane>
-      <a-plane id="letterlock" color="#CCC" width="0.2" height="0.15" position="-1.88 0.38 -1.91">
-        <a-text id="locktext" color="#000" value="Alphabet Lock" font="dejavu" width="0.3" align="center" position="0 0.06 0"></a-text>
+      <a-plane width="0.2" height="0.2" position="-1.88 0.38 -1.91"></a-plane>
+      <a-plane id="letterlock" color="#CCC" width="0.2" height="0.2" position="-1.88 0.38 -1.9" src="#lockback">
+        <a-text id="locktext" color="#000" value="Alphabet Lock" font="dejavu" width="0.3" align="center" position="0 0.08 0"></a-text>
         <!-- lock digits -->
-        <a-entity id="lockdigits" layout="layout: line; margin: 0.03" position="-0.075 0.01 0.001">
+        <a-entity id="lockdigits" layout="layout: line; margin: 0.03" position="-0.075 0.02 0.001">
           <!-- first digit -->
           <a-plane color="#000" width="0.02" height="0.03">
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="color:#FFF" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#firstdigit"></a-entity>
-            <a-text id="firstdigit" value="A" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-text id="firstdigit" value="N" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="color:#FFF" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#firstdigit"></a-entity>
           </a-plane>
           <!-- second digit -->
           <a-plane color="#000" width="0.02" height="0.03">
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="color:#FFF" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#seconddigit"></a-entity>
-            <a-text id="seconddigit" value="T" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-text id="seconddigit" value="Y" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="color:#FFF" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#seconddigit"></a-entity>
           </a-plane>
           <!-- third digit -->
@@ -323,7 +324,7 @@
           <!-- fourth digit -->
           <a-plane color="#000" width="0.02" height="0.03">
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="color:#FFF" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#fourthdigit"></a-entity>
-            <a-text id="fourthdigit" value="M" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-text id="fourthdigit" value="A" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="color:#FFF" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#fourthdigit"></a-entity>
           </a-plane>
           <!-- fifth digit -->
@@ -335,12 +336,12 @@
           <!-- sixth digit -->
           <a-plane color="#000" width="0.02" height="0.03">
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 0.025 0.001" material="color:#FFF" text="value:+; color:#555; align:center; width:0.3" letterplus="target:#sixthdigit"></a-entity>
-            <a-text id="sixthdigit" value="Y" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
+            <a-text id="sixthdigit" value="R" font="dejavu" color="#FFF" align="center" width="0.3"></a-text>
             <a-entity geometry="primitive: plane; width: 0.02; height: 0.02" position="0 -0.025 0.001" material="color:#FFF" text="value:-; color:#555; align:center; width:0.3" letterminus="target:#sixthdigit"></a-entity>
           </a-plane>
         </a-entity>
         <!-- open lock button -->
-        <a-plane id="openlock" color="#555" width="0.08" height="0.03" position="0 -0.05 0.001"
+        <a-plane id="openlock" color="#555" width="0.08" height="0.03" position="0 -0.07 0.001"
         text="value:OPEN; color:#FFF; width:0.3; font:dejavu; align:center" 
         event-set__1="_event: mouseenter; text.color:orange" 
         event-set__2="_event: mouseleave; text.color:#FFF" openlock>
@@ -351,11 +352,11 @@
       <a-box id="notebook-model" color="#362F19" width="0.3" height="0.05" depth="0.5" position="-2.3 0.025 -1.55">
       </a-box>
       <a-text color="#FFF" value="NOTEBOOK" font="dejavu" width="0.8" align="center" position="-2.3 0.06 -1.64" rotation="-90 0 0"></a-text>
-      <a-plane src="#passwordhint" width="0.35" height="0.25" position="-2 0.01 -1.5" shader="flat" rotation="-90 60 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:0 2.5 -0.75; pinposition:-2.7 2.5 -1.2; pinrotation:0 60 0" clickable="target:#hint1light">
-        <a-light id="hint1light" type="point" intensity="0.8" decay="0.8" distance="0.6" position="0 0 0.3" visible="false"></a-light>
+      <a-plane src="#passwordhint" width="0.35" height="0.35" position="-2 0.01 -1.5" shader="flat" rotation="-90 60 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:0 2.5 -0.75; pinposition:-2.7 2.5 -1.2; pinrotation:0 60 0" clickable="target:#hint1light">
+        <a-light id="hint1light" type="point" intensity="1" decay="0.8" distance="0.6" position="0 0 0.3" visible="false"></a-light>
       </a-plane>
-      <a-plane src="#dighint" width="0.35" height="0.25" position="-1.6 0.01 -1.5" shader="flat" rotation="-90 -75 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:0 2.5 -0.75; pinposition:2.7 2.5 -1.2; pinrotation:0 -60 0" clickable="target:#hint2light">
-        <a-light id="hint2light" type="point" intensity="0.8" decay="0.8" distance="0.6" position="0 0 0.3" visible="false"></a-light>
+      <a-plane src="#dighint" width="0.35" height="0.35" position="-1.6 0.01 -1.5" shader="flat" rotation="-90 -75 0" scale="1 1 1" scalesomething="scaleto:4 4 4;positionto:0 2.5 -0.75; pinposition:2.7 2.5 -1.2; pinrotation:0 -60 0" clickable="target:#hint2light">
+        <a-light id="hint2light" type="point" intensity="1" decay="0.8" distance="0.6" position="0 0 0.3" visible="false"></a-light>
       </a-plane>
 
       <!-- flag -->
