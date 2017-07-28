@@ -460,7 +460,7 @@ AFRAME.registerComponent('usetool', {
         errormsg.setAttribute("value","Wrong tool! Mind the using order!");
         errormsg.setAttribute("color","#000");
         errormsg.setAttribute("width","2");
-        errormsg.setAttribute("position","0.1 0 -1.5");
+        errormsg.setAttribute("position","0 -0.1 -1.5");
         camera.appendChild(errormsg);
         errortime = usingtime;
       }
