@@ -653,7 +653,7 @@ AFRAME.registerComponent('checkbeaker', {
     var self = this;
     var target = document.getElementById("beaker-question");
     this.eventHandlerFn = function () {
-      if(buildbeaker>=3)
+      if(buildbeaker==3)
       {
         target.setAttribute("visible","true");
       }
@@ -755,7 +755,7 @@ AFRAME.registerComponent('checkbody', {
     carbonanimation.setAttribute("dur","1000");
     carbonanimation.setAttribute("fill","both");
     this.eventHandlerFn = function () {
-      if(buildbody>=5)
+      if(buildbody==5)
       {
         target.setAttribute("src","#bodyfinish");
         document.getElementById("rightcover").appendChild(rightanimation);
