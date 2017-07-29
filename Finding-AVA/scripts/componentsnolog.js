@@ -34,6 +34,7 @@ function timedCount(){
   if(document.getElementById("showtime1")){
     document.getElementById("showtime1").children[0].setAttribute("value", showtime);
     document.getElementById("showtime1").emit("errortime");
+    document.getElementById("welcomeins").emit("welcometime");
   }
   if(document.getElementById("showtime2")){
     document.getElementById("showtime2").children[0].setAttribute("value", showtime);
@@ -87,7 +88,11 @@ function logtime(i){
 }
 
 function backtocursor(){
+  var toolinhand = document.getElementById("toolinhand").children;
   var boneinhand = document.getElementById("boneinhand").children;
+  for(var i =0; i<toolinhand.length;i++){
+    toolinhand[i].setAttribute("visible","false");
+  }
   for(var i =0; i<boneinhand.length;i++){
     boneinhand[i].setAttribute("visible","false");
   }
@@ -110,6 +115,25 @@ AFRAME.registerComponent('change-color-on-hover',{
     el.addEventListener('mouseleave',function(){
       tar.setAttribute('color', defaultColor);
     });
+  }
+});
+
+AFRAME.registerComponent('hide-welcome',{
+  schema:{
+    event:{type:'string'},
+  },
+  update:function(){
+    var evt = this.data.event;
+    var el = this.el;
+    if(evt){
+      el.addEventListener(evt, function(){
+        if(usingtime == 8){
+          if(document.getElementById("welcomeins")){
+            document.getElementById("welcomeins").setAttribute("visible","false");
+          }
+        }
+      });
+    }
   }
 });
 
@@ -160,19 +184,8 @@ AFRAME.registerComponent('switch-scene', {
     var previousScene = this.data.from;
     var targetScene = this.data.to;
     var el = this.el;
-    var toolinhand = document.getElementById("toolinhand");
-    var tools = toolinhand.children;
-    var boneinhand = document.getElementById("boneinhand");
-    var bones = boneinhand.children;
     el.addEventListener('click', function(){
-      for(var i = 0; i < tools.length; i++)
-      {
-        tools[i].setAttribute("visible","false");
-      }
-      for(var i = 0; i < bones.length; i++)
-      {
-        bones[i].setAttribute("visible","false");
-      }
+      backtocursor();
       previousScene.setAttribute('visible', 'false');
       targetScene.setAttribute('visible','true');
       if(document.getElementById("level_page").getAttribute("visible")){
