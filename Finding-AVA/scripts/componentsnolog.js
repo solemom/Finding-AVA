@@ -127,7 +127,7 @@ AFRAME.registerComponent('hide-welcome',{
     var el = this.el;
     if(evt){
       el.addEventListener(evt, function(){
-        if(usingtime == 8){
+        if(usingtime == 10){
           if(document.getElementById("welcomeins")){
             document.getElementById("welcomeins").setAttribute("visible","false");
           }
