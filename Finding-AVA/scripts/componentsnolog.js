@@ -195,9 +195,9 @@ AFRAME.registerComponent('switch-scene', {
         timedCount();
         numberoftiming = 0;
       }
-      if((targetScene == document.getElementById("welcome_page")) && (previousScene == document.getElementById("research_page"))){
-        window.location.reload();
-      }
+      //if((targetScene == document.getElementById("welcome_page")) && (previousScene == document.getElementById("research_page"))){
+        //window.location.reload();
+      //}
     });
   }
 });
