@@ -52,6 +52,7 @@ function checkTime(i){
   return i
 }
 
+//source - http://blog.csdn.net/huaweidong2011/article/details/17271067
 function doSave(value, type, name) {  
     var blob;  
     if (typeof window.Blob == "function") {  
@@ -401,7 +402,7 @@ AFRAME.registerComponent('openlock', {
       var digit4 = document.getElementById("fourthdigit").getAttribute("value");
       var digit5 = document.getElementById("fifthdigit").getAttribute("value");
       var digit6 = document.getElementById("sixthdigit").getAttribute("value");
-      if(digit1=="L" && digit2=="R" && digit3=="M" && digit4=="C" && digit5=="P" && digit6=="T")
+      if(digit1=="C" && digit2=="R" && digit3=="P" && digit4=="L" && digit5=="M" && digit6=="T")
       {
         document.getElementById("letterlock").setAttribute("visible","false");
         document.getElementById("toolbox-model").setAttribute("visible","false");
