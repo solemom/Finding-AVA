@@ -10,6 +10,7 @@ var timer;
 var numberoftiming = 1;
 var progress = 0;
 var errortime = 0;
+var welcomebegintime = 0;
 
 window.onload = function(){
   level = 1;
@@ -23,6 +24,8 @@ window.onload = function(){
   numberoftiming = 1;
   progress = 0;
   errortime = 0;
+  welcomebegintime = 0;
+
 }
 
 function timedCount(){
@@ -128,7 +131,7 @@ AFRAME.registerComponent('hide-welcome',{
     var el = this.el;
     if(evt){
       el.addEventListener(evt, function(){
-        if(usingtime == 10){
+        if(usingtime == 15 + welcomebegintime){
           if(document.getElementById("welcomeins")){
             document.getElementById("welcomeins").setAttribute("visible","false");
           }
@@ -192,10 +195,18 @@ AFRAME.registerComponent('switch-scene', {
       if(document.getElementById("level_page").getAttribute("visible")){
         document.getElementById("level_page").emit("checklevel");
       }
-      if((targetScene == document.getElementById("discover_page")) && (numberoftiming == 1)){
-        timedCount();
-        numberoftiming = 0;
+      if(targetScene == document.getElementById("discover_page")){
+        welcomebegintime = usingtime;
+        if(numberoftiming == 1)
+        {
+          timedCount();
+          numberoftiming = 0;
+        }
       }
+      //if((targetScene == document.getElementById("discover_page")) && (numberoftiming == 1)){
+        //timedCount();
+        //numberoftiming = 0;
+      //}
       //if((targetScene == document.getElementById("welcome_page")) && (previousScene == document.getElementById("research_page"))){
         //window.location.reload();
       //}
