@@ -10,7 +10,6 @@
     <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
     <script src="https://unpkg.com/aframe-line-component/dist/aframe-line-component.min.js"></script>
     <script src="scripts/componentsnolog.js"></script>
-    <!--<script src="scripts/gamepad.js"></script>-->
   </head>
 
   <body>
@@ -211,7 +210,7 @@
     <!-- ======================================== discover page ===========================================-->
     <a-entity id="discover_page" visible="false">
       <!-- welcome instruction-->
-      <a-plane id="welcomeins" color="#333" height="1" width="1.8" position="0 2.7 -0.5" metalness="0.5" text="value:Welcome to the puzzle world for archaeology! Please find clues as many as possible to solve the puzzles and finally find AVA who was buried thousands of years ago. Let's Go!; color:orange; align:center; font:dejavu; width:1.5; line-height:50; wrap-count:35" hide-welcome="event:welcometime">
+      <a-plane id="welcomeins" color="#333" height="1" width="1.8" position="0 2.7 -0.5" metalness="0.5" text="value:Welcome to the puzzle world for archaeology! Please find clues to solve the puzzles and finally find Ava who was buried thousands of years ago. In this level 1, you need to find and dig the burial site. Let's Go!; color:orange; align:center; font:dejavu; width:1.5; line-height:50; wrap-count:35" hide-welcome="event:welcometime">
       </a-plane>
       <!-- clouds in sky -->
       <a-entity obj-model="obj:#cloud1-obj;mtl:#cloud1-mtl" scale="0.4 0.4 0.4" position="-5 4.5 -2.5">
@@ -254,7 +253,7 @@
       <!-- help information -->
       <a-plane id="helpinfo1" color="#333" height="1.2" width="1" position="0 2.7 -0.5" metalness="0.5" visible="false">
         <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.5 0"></a-text>
-        <a-text value="This level will teach you about the tools and process of archaeological excavation. You need to use the information on the notebook pages to unlock the tool box. These are hidden beneath the tent." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
+        <a-text value="This level aims to get the remains by digging the burial site. It will teach you about the tools and process of archaeological excavation. You need to use the information on the notebook pages to unlock the tool box. These are hidden beneath the tent." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.21 0" wrap-count="34" ></a-text>
         <a-text value="Pay close attention to the numbers beside the tools. They will help you solve the sequence of the tool box password as well as the using order of tools. If you don’t follow the order, it won’t work!" color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.2 0" wrap-count="34" ></a-text>
         <!-- back button -->
         <a-circle radius="0.05" text="value:<; width:1.5; align:center" color="#000" position="0.5 0.49 0.01"
@@ -714,7 +713,7 @@
       <!-- help information -->
       <a-plane id="helpinfo3" color="#333" height="1" width="1" position="0 2.7 -0.5" metalness="0.5" visible="false">
         <a-text value="Help Information" color="orange" width="1.37" font="dejavu" position="-0.43 0.4 0"></a-text>
-        <a-text value="In this final level you will need to answer the three questions on the wall. Refer to the research book on the shelf and to the objects in front to figure out the answers. Pay close attention to any information which will help you find the answers. This is the key to finding Ava." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.07 0" wrap-count="34" ></a-text>
+        <a-text value="In this final level you will need to answer the four questions on the wall. Refer to the research book on the shelf and to the objects in front to figure out the answers. Pay close attention to any information which will help you find the answers. This is the key to finding Ava." color="#FFF" width="0.9" font="dejavu" position="-0.43 0.07 0" wrap-count="34" ></a-text>
         <a-text value="Click the bones to get the detailed information and click it again to put it back." color="#FFF" width="0.9" font="dejavu" position="-0.43 -0.32 0" wrap-count="34" ></a-text>
         <!-- back button -->
         <a-circle radius="0.05" text="value:<; width:1.5; align:center" color="#000" position="0.5 0.39 0.01"
