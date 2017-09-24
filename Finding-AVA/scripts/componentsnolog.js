@@ -204,6 +204,15 @@ AFRAME.registerComponent('switch-scene', {
   }
 });
 
+AFRAME.registerComponent('restart', {
+  init: function () {
+    var el = this.el;
+    el.addEventListener('click', function(){
+      window.location.reload();
+    });
+  }
+});
+
 AFRAME.registerComponent('levels', {
   schema: {
     event: {type: 'string', default: ''},

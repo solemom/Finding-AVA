@@ -196,12 +196,14 @@
         </a-plane>
         <!-- second identify level -->
         <a-plane id="identify_link" width="1" height="1" color="#333" sound="on: click; src: #click-sound"
-        text="value:IDENTIFY; color:#FFF; width:3; font:dejavu; align:center">
+        text="value:IDENTIFY; color:#FFF; width:3; font:dejavu; align:center"
+        switch-scene="from:#level_page; to:#identify_page">
         <a-plane id="locked1" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
         </a-plane>
         <!-- third research level --> 
         <a-plane id="research_link" width="1" height="1" color="#333" sound="on: click; src: #click-sound"
-        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center">
+        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center"
+        switch-scene="from:#level_page; to:#research_page">
         <a-plane id="locked2" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
         </a-plane>
       </a-entity>
@@ -266,6 +268,13 @@
       <!-- HOME button -->
       <a-plane color="#10563a" opacity="0" width="1.2" height="0.5" position="3.1 3.94 -3.4" switch-scene="from:#discover_page; to:#level_page" change-environ="src:#sechelt" sound="on: click; src: #click-sound"
       text="value:<< HOME; color:#10563a; width:5; font:dejavu; align:center"
+      event-set__1="_event: mouseenter; text.color:orange"
+      event-set__2="_event: mouseleave; text.color:#10563a">
+      </a-plane>
+
+      <!-- REPLAY button -->
+      <a-plane color="#10563a" opacity="0" width="1.2" height="0.5" position="-2.8 4.4 -3.4" restart sound="on: click; src: #click-sound"
+      text="value:<< REPLAY; color:#10563a; width:5; font:dejavu; align:center"
       event-set__1="_event: mouseenter; text.color:orange"
       event-set__2="_event: mouseleave; text.color:#10563a">
       </a-plane>
@@ -456,6 +465,13 @@
         <!-- HOME button -->
         <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="2.8 1.5 0.61" switch-scene="from:#identify_page; to:#level_page" change-environ="src:#sechelt" sound="on: click; src: #click-sound"
         text="value:<< HOME; color:#313c47; width:5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#313c47">
+        </a-plane>
+
+        <!-- REPLAY button -->
+        <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="-2.42 2 0.61" restart sound="on: click; src: #click-sound"
+        text="value:<< REPLAY; color:#313c47; width:5; font:dejavu; align:center"
         event-set__1="_event: mouseenter; text.color:orange"
         event-set__2="_event: mouseleave; text.color:#313c47">
         </a-plane>
@@ -688,7 +704,14 @@
         <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="2.75 1.7 0.6" switch-scene="from:#research_page; to:#level_page" change-environ="src:#sechelt" sound="on: click; src: #click-sound"
         text="value:<< HOME; color:#66492d; width:5; font:dejavu; align:center"
         event-set__1="_event: mouseenter; text.color:orange"
-        event-set__2="_event: mouseleave; text.color:#664">
+        event-set__2="_event: mouseleave; text.color:#66492d">
+        </a-plane>
+
+        <!-- REPLAY button -->
+        <a-plane color="#555" opacity="0" width="1.2" height="0.5" position="-2.6 2.2 0.6" restart sound="on: click; src: #click-sound"
+        text="value:<< REPLAY; color:#66492d; width:5; font:dejavu; align:center"
+        event-set__1="_event: mouseenter; text.color:orange"
+        event-set__2="_event: mouseleave; text.color:#66492d">
         </a-plane>
       </a-box>
       <a-box color="#e2cb9c" src="#roomwall-texture" repeat="12 6" width="8" height="6" depth="0.5" position="0 3 4"></a-box>
