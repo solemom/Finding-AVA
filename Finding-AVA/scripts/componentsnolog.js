@@ -810,9 +810,10 @@ AFRAME.registerComponent('radiobutton',{
 var positioninfo = new Array();
 var scaleinfo = new Array();
 var rotationinfo = new Array();
+var boneelem = new Array();
 
 function getboneinfo(){
-  var boneelem = document.getElementById("boneondesk").children;  
+  boneelem = document.getElementById("boneondesk").children;  
   for(var i=0;i<boneelem.length; i++){
     positioninfo[i] = boneelem[i].getAttribute("position");
     scaleinfo[i] = boneelem[i].getAttribute("scale");
@@ -831,26 +832,25 @@ AFRAME.registerComponent('showboneinfo', {
     var scaleto = this.data.scaleto;
     var positionto = this.data.positionto;
     var target = this.data.target;
-    var originalscale = el.getAttribute("scale");
-    var originalposition = el.getAttribute("position");
-    var originalrotation = el.getAttribute("rotation");
+    //var originalscale = el.getAttribute("scale");
+    //var originalposition = el.getAttribute("position");
+    //var originalrotation = el.getAttribute("rotation");
     getboneinfo();
-    var elem = document.getElementById("boneondesk").children;
     
     el.addEventListener('click', function(){
-      var originalscaleX = el.getAttribute("scale").x;
-      if(originalscaleX==originalscale.x)
-      {
+      //var originalscaleX = el.getAttribute("scale").x;
+      //if(originalscaleX==originalscale.x)
+      //{
         if(document.getElementById("boneondesk").querySelector("a-animation")){
           var anim = document.getElementById("boneondesk").querySelectorAll("a-animation");
           for(var j=0;j<anim.length; j++){
             anim[j].parentNode.removeChild(anim[j].parentNode.children[0]);
           }
         }
-        for(var i=0;i<elem.length; i++){
-          elem[i].setAttribute("position",positioninfo[i]);
-          elem[i].setAttribute("scale",scaleinfo[i]);
-          elem[i].setAttribute("rotation",rotationinfo[i]);
+        for(var i=0;i<boneelem.length; i++){
+          boneelem[i].setAttribute("position",positioninfo[i]);
+          boneelem[i].setAttribute("scale",scaleinfo[i]);
+          boneelem[i].setAttribute("rotation",rotationinfo[i]);
           document.getElementById("boneinfo").children[i].setAttribute("visible","false");
         }
         el.setAttribute("scale",scaleto);
@@ -865,15 +865,39 @@ AFRAME.registerComponent('showboneinfo', {
         infoanimation.setAttribute("easing","linear");
         infoanimation.setAttribute("repeat","indefinite");
         el.appendChild(infoanimation);
-      }
-      else
-      {
-        el.setAttribute("scale",originalscale);
-        el.setAttribute("position",originalposition);
-        el.setAttribute("rotation",originalrotation);
-        target.setAttribute("visible","false");
-        el.removeChild(el.children[0]);
-      } 
+      //}
+      //else
+      //{
+        //el.setAttribute("scale",originalscale);
+        //el.setAttribute("position",originalposition);
+        //el.setAttribute("rotation",originalrotation);
+        //target.setAttribute("visible","false");
+        //el.removeChild(el.children[0]);
+      //} 
+    });
+  }
+});
+
+AFRAME.registerComponent('hideboneinfo', {
+  schema: {
+    target:{type: 'selector'},
+    boneindex: {type: 'number'}
+  },
+  init:function(){
+    var el = this.el;
+    var target = this.data.target;
+    var boneindex = this.data.boneindex;
+    el.addEventListener('click',function(){
+      if(document.getElementById("boneondesk").querySelector("a-animation")){
+          var anim = document.getElementById("boneondesk").querySelectorAll("a-animation");
+          for(var j=0;j<anim.length; j++){
+            anim[j].parentNode.removeChild(anim[j].parentNode.children[0]);
+          }
+        }
+      boneelem[boneindex].setAttribute('position',positioninfo[boneindex]);
+      boneelem[boneindex].setAttribute('scale',scaleinfo[boneindex]);
+      boneelem[boneindex].setAttribute('rotation',rotationinfo[boneindex]);
+      target.setAttribute('visible','false');
     });
   }
 });

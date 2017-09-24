@@ -201,7 +201,8 @@
         </a-plane>
         <!-- third research level --> 
         <a-plane id="research_link" width="1" height="1" color="#333" sound="on: click; src: #click-sound"
-        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center">
+        text="value:RESEARCH; color:#FFF; width:3; font:dejavu; align:center"
+        switch-scene="from:#level_page; to:#research_page">
         <a-plane id="locked2" width="0.3" height="0.3" src="#lock" position="0.25 0.3 0.01"></a-plane>
         </a-plane>
       </a-entity>
@@ -598,11 +599,11 @@
             text="value: GENDER?; font: dejavu; width:5; align:center; color:#e2cb9c" position="0 1.05 0.01">
             </a-plane>
             <a-entity>
-              <a-plane color="#664" width="1.6" height="0.65" text="value: Male; width:5; align:center" position="0 0.25 0.01"
+              <a-plane color="#664" width="1.6" height="0.65" text="value: Female; width:5; align:center" position="0 0.25 0.01"
               event-set__1="_event: mouseenter; text.color:orange"
               event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
               </a-plane>
-              <a-plane id="rightgender" color="#664" width="1.6" height="0.65" text="value: Female; width:5; align:center" position="0 -0.45 0.01"
+              <a-plane id="rightgender" color="#664" width="1.6" height="0.65" text="value: Male; width:5; align:center" position="0 -0.45 0.01"
               event-set__1="_event: mouseenter; text.color:orange"
               event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
               </a-plane>
@@ -617,19 +618,15 @@
             text="value: AGE?; font: dejavu; width:5; align:center; color:#e2cb9c" position="0 1.05 0.01">
             </a-plane>
             <a-entity>
-              <a-plane color="#664" width="1.6" height="0.48" text="value: < 18; width:5; align:center" position="0 0.33 0.01"
+              <a-plane color="#664" width="1.6" height="0.65" text="value: Child; width:5; align:center" position="0 0.25 0.01"
               event-set__1="_event: mouseenter; text.color:orange"
               event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
               </a-plane>
-              <a-plane id="rightage" color="#664" width="1.6" height="0.48" text="value: 18 - 30; width:5; align:center" position="0 -0.19 0.01"
+              <a-plane id="rightage" color="#664" width="1.6" height="0.65" text="value: Young Adult; width:5; align:center" position="0 -0.45 0.01"
               event-set__1="_event: mouseenter; text.color:orange"
               event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
               </a-plane>
-              <a-plane color="#664" width="1.6" height="0.48" text="value: 30 - 50; width:5; align:center" position="0 -0.71 0.01"
-              event-set__1="_event: mouseenter; text.color:orange"
-              event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
-              </a-plane>
-              <a-plane color="#664" width="1.6" height="0.48" text="value: > 50; width:5; align:center" position="0 -1.23 0.01"
+              <a-plane color="#664" width="1.6" height="0.65" text="value: Older Adult; width:5; align:center" position="0 -1.15 0.01"
               event-set__1="_event: mouseenter; text.color:orange"
               event-set__2="_event: mouseleave; text.color:#FFF" radiobutton>
               </a-plane>
@@ -736,18 +733,39 @@
             <a-plane id="skull-info" width="1.8" height="1.4" color="#333" metalness="0.5" position="0.6 2 0" visible="false">
               <a-text value="The Skull and Teeth" color="orange" width="2" align="center" font="dejavu" position="0 0.5 0" wrap-count="30"></a-text>
               <a-text value="This skull has a flat brow ridge and teeth that have a little but not very much wear." align="left" width="1.5" font="dejavu" position="-0.7 -0.06 0" line-height="50" wrap-count="25"></a-text>
+              <!-- close button -->
+              <a-circle radius="0.1" text="value:<; width:2.5; align:center" color="#000" position="0.9 0.5 0.01"
+              event-set__1="_event: mouseenter; color:orange"
+              event-set__2="_event: mouseleave; color:#000"
+              hideboneinfo="target: #skull-info; boneindex: 0">
+              </a-circle>
             </a-plane>
             <a-plane id="beaker-info" width="1.8" height="1.4" color="#333" metalness="0.5" position="0.6 2 0" visible="false">
               <a-text value="The Beaker" color="orange" width="2" align="center" font="dejavu" position="0 0.5 0" wrap-count="30"></a-text>
               <a-text value="Some pollen residue has been detected on the surface of the beaker." align="left" width="1.5" font="dejavu" position="-0.7 -0.06 0" line-height="50" wrap-count="25"></a-text>
+              <a-circle radius="0.1" text="value:<; width:2.5; align:center" color="#000" position="0.9 0.5 0.01"
+              event-set__1="_event: mouseenter; color:orange"
+              event-set__2="_event: mouseleave; color:#000"
+              hideboneinfo="target: #beaker-info; boneindex: 1">
+              </a-circle>
             </a-plane>
             <a-plane id="leg-info" width="1.8" height="1.4" color="#333" metalness="0.5" position="0.6 2 0" visible="false">
               <a-text value="The Leg" color="orange" width="2" align="center" font="dejavu" position="0 0.5 0" wrap-count="30"></a-text>
               <a-text value="This bone measured 362mm in length is from an adult who was of average height." align="left" width="1.5" font="dejavu" position="-0.7 -0.06 0" line-height="50" wrap-count="25"></a-text>
+              <a-circle radius="0.1" text="value:<; width:2.5; align:center" color="#000" position="0.9 0.5 0.01"
+              event-set__1="_event: mouseenter; color:orange"
+              event-set__2="_event: mouseleave; color:#000"
+              hideboneinfo="target: #leg-info; boneindex: 2">
+              </a-circle>
             </a-plane>
             <a-plane id="spine-info" width="1.8" height="1.4" color="#333" metalness="0.5" position="0.6 2 0" visible="false">
               <a-text value="The Pelvis" color="orange" width="2" align="center" font="dejavu" position="0 0.5 0" wrap-count="30"></a-text>
               <a-text value="This pelvis is quite wide and is from an adult." align="left" width="1.5" font="dejavu" position="-0.7 -0.06 0" line-height="50" wrap-count="25"></a-text>
+              <a-circle radius="0.1" text="value:<; width:2.5; align:center" color="#000" position="0.9 0.5 0.01"
+              event-set__1="_event: mouseenter; color:orange"
+              event-set__2="_event: mouseleave; color:#000"
+              hideboneinfo="target: #spine-info; boneindex: 3">
+              </a-circle>
             </a-plane>
           </a-entity>
         </a-box>
